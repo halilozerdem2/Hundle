@@ -9,11 +9,13 @@ interface NewsListProps {
   selectedCategories: Category[];
 }
 
-const dateFormatter = new Intl.DateTimeFormat('en', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-  timeZone: 'UTC'
-});
+const formatTimestamp = (isoString: string) => {
+  const match = isoString.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
+  if (!match) {
+    return isoString;
+  }
+  return `${match[1]} ${match[2]} UTC`;
+};
 
 const emptyCopy = {
   idle: 'Pick at least one category and tap "Fetch my news" to see curated stories.',
@@ -58,7 +60,7 @@ const NewsList = ({ articles, isLoading, hasFetched, selectedCategories }: NewsL
             <h3>{article.title}</h3>
             <p className="news-description">{article.description}</p>
             <div className="news-meta">
-              <span>{dateFormatter.format(new Date(article.publishedAt))}</span>
+              <span>{formatTimestamp(article.publishedAt)}</span>
               <span className="news-link">Read more →</span>
             </div>
           </a>
