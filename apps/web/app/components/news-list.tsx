@@ -11,7 +11,8 @@ interface NewsListProps {
 
 const dateFormatter = new Intl.DateTimeFormat('en', {
   dateStyle: 'medium',
-  timeStyle: 'short'
+  timeStyle: 'short',
+  timeZone: 'UTC'
 });
 
 const emptyCopy = {
