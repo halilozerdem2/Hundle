@@ -57,7 +57,7 @@ body {
 }
 
 .card {
-  width: min(960px, 100%);
+  width: min(1080px, 100%);
   background: rgba(15, 23, 42, 0.85);
   border-radius: 1.5rem;
   padding: 2rem;
@@ -143,6 +143,17 @@ button.secondary {
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
+}
+
+.news-list.news-list--empty {
+  min-height: 280px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.45);
 }
 
 .news-item {
@@ -457,7 +468,7 @@ button.secondary {
 }
 
 .news-page-card {
-  width: min(960px, 100%);
+  width: min(1080px, 100%);
   margin: 0 auto;
   background: rgba(15, 23, 42, 0.85);
   border-radius: 1.75rem;

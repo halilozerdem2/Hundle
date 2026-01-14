@@ -22,19 +22,25 @@ const emptyCopy = {
   empty: 'No fresh stories for those topics right now. Try broadening your picks or check back soon.'
 };
 
+const renderPlaceholder = (message: string) => (
+  <div className="news-list news-list--empty" role="status">
+    <p className="news-placeholder">{message}</p>
+  </div>
+);
+
 const NewsList = ({ articles, isLoading, hasFetched, selectedCategories }: NewsListProps) => {
   const selectedLabel = selectedCategories.length ? selectedCategories.join(', ') : 'all topics';
 
   if (isLoading && !hasFetched) {
-    return <p className="news-placeholder">Gathering the latest from {selectedLabel}…</p>;
+    return renderPlaceholder(`Gathering the latest from ${selectedLabel}…`);
   }
 
   if (!hasFetched) {
-    return <p className="news-placeholder">{emptyCopy.idle}</p>;
+    return renderPlaceholder(emptyCopy.idle);
   }
 
   if (!articles.length) {
-    return <p className="news-placeholder">{emptyCopy.empty}</p>;
+    return renderPlaceholder(emptyCopy.empty);
   }
 
   return (

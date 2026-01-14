@@ -7,6 +7,13 @@ node_modules/
 dist/
 .turbo/
 
+# Generated TypeScript build artifacts accidentally emitted alongside sources
+packages/shared/src/*.js
+packages/shared/src/*.d.ts
+packages/shared/src/*.d.ts.map
+packages/news-core/src/*.js
+packages/push-core/src/*.js
+
 # Env files
 .env*
 
