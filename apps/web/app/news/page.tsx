@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { fetchNews } from '@news/news-core';
 import { AVAILABLE_CATEGORIES, Category, NewsArticle } from '@news/shared';
-import NewsFeed from '../components/news-feed';
+import NewsClient from './NewsClient';
 
 interface NewsPageProps {
   searchParams?: {
@@ -47,11 +47,7 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
         <div className="news-page-divider" />
 
         {articles.length ? (
-          <NewsFeed
-            articles={articles}
-            selectedCategories={targetCategories}
-            hasFetched
-          />
+          <NewsClient articles={articles} categories={targetCategories} />
         ) : (
           <p className="news-placeholder">We could not find new stories right now.</p>
         )}
