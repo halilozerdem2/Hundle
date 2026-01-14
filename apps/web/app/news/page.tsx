@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import { fetchNews } from '@news/news-core';
-import type { Category, NewsArticle, NotificationFrequency } from '@news/shared';
-import { AVAILABLE_CATEGORIES, NOTIFICATION_FREQUENCIES } from '@news/shared';
+import {
+  AVAILABLE_CATEGORIES,
+  NOTIFICATION_FREQUENCIES,
+  type Category,
+  type NewsArticle,
+  type NotificationFrequency
+} from '@news/shared';
 import NewsFeed from '../components/news-feed';
+
+type Panel = 'categories' | 'notifications';
 
 interface NewsPageProps {
   searchParams?: {
@@ -25,10 +32,11 @@ const parseCategories = (value?: string): Category[] => {
 const isFrequency = (value?: string): value is NotificationFrequency =>
   !!value && NOTIFICATION_FREQUENCIES.includes(value as NotificationFrequency);
 
-const buildHomeQuery = (
+const buildHomeUrl = (
   categories: Category[],
   frequency?: NotificationFrequency,
-  notificationsOff?: boolean
+  notificationsOff?: boolean,
+  panel?: Panel
 ) => {
   const params = new URLSearchParams();
   if (categories.length) {
@@ -39,14 +47,17 @@ const buildHomeQuery = (
   } else if (frequency) {
     params.set('frequency', frequency);
   }
-  const queryString = params.toString();
-  return queryString ? `/?${queryString}` : '/';
+  if (panel) {
+    params.set('panel', panel);
+  }
+  const query = params.toString();
+  return query ? `/?${query}` : '/';
 };
 
 const NewsPage = async ({ searchParams }: NewsPageProps) => {
   const categories = parseCategories(searchParams?.categories);
   const notificationsOff = searchParams?.notifications === 'off';
-  const frequency = isFrequency(searchParams?.frequency) ? searchParams?.frequency : undefined;
+  const frequency = isFrequency(searchParams?.frequency) ? searchParams.frequency! : '1h';
 
   let articles: NewsArticle[] = [];
   if (categories.length) {
@@ -57,14 +68,15 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
     }
   }
 
-  const homeUrl = buildHomeQuery(categories, frequency, notificationsOff);
+  const changeCategoriesUrl = buildHomeUrl(categories, frequency, notificationsOff, 'categories');
+  const changeNotificationsUrl = buildHomeUrl(categories, frequency, notificationsOff, 'notifications');
 
   return (
     <main className="news-page-shell">
       <section className="news-page-card">
         <div className="news-selection-summary">
           <div>
-            <p className="news-section-subtitle">Seçilen kategoriler</p>
+            <p className="news-section-subtitle">Selected categories</p>
             {categories.length ? (
               <div className="tag-list">
                 {categories.map((category) => (
@@ -74,23 +86,26 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
                 ))}
               </div>
             ) : (
-              <p className="news-placeholder">Henüz kategori seçilmedi.</p>
+              <p className="news-placeholder">No categories selected.</p>
             )}
             <p className="notice small">
-              {notificationsOff
-                ? 'Bildirimler kapalı.'
-                : `Bildirim sıklığı: ${frequency ?? '1h'}`}
+              {notificationsOff ? 'Notifications are disabled.' : `Notification frequency: ${frequency}`}
             </p>
           </div>
-          <Link className="primary-outline" href={homeUrl}>
-            Ayarları değiştir
-          </Link>
+          <div className="summary-actions">
+            <Link className="primary-outline" href={changeNotificationsUrl}>
+              Change notification settings
+            </Link>
+            <Link className="primary-outline" href={changeCategoriesUrl}>
+              Change categories
+            </Link>
+          </div>
         </div>
 
         <div className="news-page-divider" />
 
         {!categories.length ? (
-          <p className="news-placeholder">Önce bir kategori seçmek için ayarlar sayfasına dönün.</p>
+          <p className="news-placeholder">Return to the previous page to select at least one category.</p>
         ) : articles.length ? (
           <NewsFeed
             articles={articles}
@@ -99,7 +114,7 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
             isLoading={false}
           />
         ) : (
-          <p className="news-placeholder">Bu kategorilerde yeni haber bulunamadı.</p>
+          <p className="news-placeholder">No fresh stories for this selection at the moment.</p>
         )}
       </section>
     </main>

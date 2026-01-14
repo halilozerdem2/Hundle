@@ -1,4 +1,4 @@
-import { Category, NewsArticle } from '@news/shared';
+import { AVAILABLE_CATEGORIES, Category, NewsArticle } from '@news/shared';
 
 const stamp = (minutesAgo: number) =>
   new Date(Date.now() - minutesAgo * 60 * 1000).toISOString();
@@ -200,18 +200,14 @@ const categorySeeds: Partial<Record<Category, NewsArticle[]>> = {
 
 const seedData: NewsArticle[] = Object.values(categorySeeds).flat();
 
-const fallbackSources: Record<Category, string> = {
-  technology: 'https://news.google.com/search?q=technology+news',
-  business: 'https://news.google.com/search?q=business+markets',
-  sports: 'https://news.google.com/search?q=sports+highlights',
-  science: 'https://news.google.com/search?q=science+discoveries',
-  politics: 'https://news.google.com/search?q=politics+briefing',
-  health: 'https://news.google.com/search?q=health+trends',
-  entertainment: 'https://news.google.com/search?q=entertainment+headlines',
-  travel: 'https://news.google.com/search?q=travel+destinations',
-  finance: 'https://news.google.com/search?q=finance+markets',
-  gaming: 'https://news.google.com/search?q=gaming+news'
-};
+const fallbackSources: Record<Category, string> = AVAILABLE_CATEGORIES.reduce(
+  (acc, category) => {
+    const query = encodeURIComponent(`${category} news`);
+    acc[category] = `https://news.google.com/search?q=${query}`;
+    return acc;
+  },
+  {} as Record<Category, string>
+);
 
 export const fetchNews = async (categories: Category[]): Promise<NewsArticle[]> => {
   if (!categories.length) {

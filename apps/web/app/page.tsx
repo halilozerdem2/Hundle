@@ -6,11 +6,14 @@ import {
   type NotificationFrequency
 } from '@news/shared';
 
+type Panel = 'categories' | 'notifications';
+
 interface HomePageProps {
   searchParams?: {
     categories?: string;
     frequency?: string;
     notifications?: string;
+    panel?: string;
   };
 }
 
@@ -27,16 +30,21 @@ const parseCategories = (value?: string): Category[] => {
 const isFrequency = (value?: string): value is NotificationFrequency =>
   !!value && NOTIFICATION_FREQUENCIES.includes(value as NotificationFrequency);
 
+const isPanel = (value?: string): value is Panel =>
+  value === 'categories' || value === 'notifications';
+
 const Page = ({ searchParams }: HomePageProps) => {
   const categories = parseCategories(searchParams?.categories);
   const notificationsEnabled = searchParams?.notifications !== 'off';
-  const frequency = isFrequency(searchParams?.frequency) ? searchParams!.frequency : '1h';
+  const frequency = isFrequency(searchParams?.frequency) ? searchParams.frequency! : '1h';
+  const panel = isPanel(searchParams?.panel) ? searchParams?.panel : undefined;
 
   return (
     <HomeClient
       initialCategories={categories}
       initialFrequency={frequency}
       notificationsEnabled={notificationsEnabled}
+      initialPanel={panel}
     />
   );
 };

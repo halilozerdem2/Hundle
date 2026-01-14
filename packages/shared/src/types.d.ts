@@ -8,7 +8,28 @@ export type Category =
   | 'entertainment'
   | 'travel'
   | 'finance'
-  | 'gaming';
+  | 'gaming'
+  | 'education'
+  | 'energy'
+  | 'environment'
+  | 'startups'
+  | 'automotive'
+  | 'fashion'
+  | 'food'
+  | 'real-estate'
+  | 'world'
+  | 'local'
+  | 'culture'
+  | 'security'
+  | 'defense'
+  | 'weather'
+  | 'celebrity'
+  | 'movies'
+  | 'music'
+  | 'art'
+  | 'literature'
+  | 'space'
+  | 'history';
 export type NotificationFrequency = '30m' | '1h' | '3h' | '1d';
 export type Platform = 'android' | 'ios-pwa' | 'desktop';
 export interface NewsArticle {

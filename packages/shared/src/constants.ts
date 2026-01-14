@@ -10,7 +10,28 @@ export const AVAILABLE_CATEGORIES: Category[] = [
   'entertainment',
   'travel',
   'finance',
-  'gaming'
+  'gaming',
+  'education',
+  'energy',
+  'environment',
+  'startups',
+  'automotive',
+  'fashion',
+  'food',
+  'real-estate',
+  'world',
+  'local',
+  'culture',
+  'security',
+  'defense',
+  'weather',
+  'celebrity',
+  'movies',
+  'music',
+  'art',
+  'literature',
+  'space',
+  'history'
 ];
 
 export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = ['30m', '1h', '3h', '1d'];

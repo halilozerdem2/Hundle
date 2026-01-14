@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AVAILABLE_CATEGORIES,
@@ -13,15 +13,31 @@ interface HomeClientProps {
   initialCategories: Category[];
   initialFrequency: NotificationFrequency;
   notificationsEnabled: boolean;
+  initialPanel?: 'categories' | 'notifications';
 }
 
-const HomeClient = ({ initialCategories, initialFrequency, notificationsEnabled }: HomeClientProps) => {
+const HomeClient = ({
+  initialCategories,
+  initialFrequency,
+  notificationsEnabled,
+  initialPanel
+}: HomeClientProps) => {
   const router = useRouter();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>(initialCategories);
-  const [showNotificationSettings, setShowNotificationSettings] = useState(false);
-  const [frequency, setFrequency] = useState<NotificationFrequency>(initialFrequency);
   const [allowNotifications, setAllowNotifications] = useState(notificationsEnabled);
+  const [frequency, setFrequency] = useState<NotificationFrequency>(initialFrequency);
   const [error, setError] = useState<string | null>(null);
+
+  const [showSelection, setShowSelection] = useState(
+    initialPanel === 'categories' || initialCategories.length === 0
+  );
+  const [showNotificationSettings, setShowNotificationSettings] = useState(
+    initialPanel === 'notifications'
+  );
+
+  const selectionLabel = selectedCategories.length
+    ? selectedCategories.join(', ')
+    : 'no categories selected yet';
 
   const toggleCategory = (category: Category) => {
     setSelectedCategories((prev) =>
@@ -29,26 +45,43 @@ const HomeClient = ({ initialCategories, initialFrequency, notificationsEnabled 
     );
   };
 
-  const handleViewNews = () => {
-    if (!selectedCategories.length) {
-      setError('Lütfen en az bir kategori seçin.');
-      return;
-    }
+  const handleDisableNotifications = () => {
+    setAllowNotifications(false);
+    setShowNotificationSettings(false);
+  };
+
+  const buildNewsUrl = () => {
     const params = new URLSearchParams();
     params.set('categories', selectedCategories.join(','));
-    if (allowNotifications) {
-      params.set('frequency', frequency);
-    } else {
+    if (!allowNotifications) {
       params.set('notifications', 'off');
+    } else {
+      params.set('frequency', frequency);
     }
-    router.push(`/news?${params.toString()}`);
+    return `/news?${params.toString()}`;
   };
+
+  const handleViewNews = () => {
+    if (!selectedCategories.length) {
+      setError('Please pick at least one category.');
+      return;
+    }
+    setError(null);
+    router.push(buildNewsUrl());
+  };
+
+  const infoText = useMemo(() => {
+    if (!allowNotifications) {
+      return 'Notifications are turned off.';
+    }
+    return `You will receive updates every ${frequency}.`;
+  }, [allowNotifications, frequency]);
 
   return (
     <section className="card home-panel">
       <header>
-        <h1>Hangi haberlerle başlamak istersiniz?</h1>
-        <p>En az bir kategori seçin, ilgilendiğiniz alanları girin, ardından haber akışınızı oluşturalım.</p>
+        <h1>Build your news feed</h1>
+        <p>Select the topics that matter. We will pull matching stories and optionally nudge you.</p>
       </header>
 
       <div className="category-bar">
@@ -65,7 +98,7 @@ const HomeClient = ({ initialCategories, initialFrequency, notificationsEnabled 
       </div>
 
       <div className="selected-interests">
-        <h2>İlgi alanlarım</h2>
+        <h2>My interests</h2>
         {selectedCategories.length ? (
           <div className="tag-list">
             {selectedCategories.map((category) => (
@@ -75,13 +108,17 @@ const HomeClient = ({ initialCategories, initialFrequency, notificationsEnabled 
             ))}
           </div>
         ) : (
-          <p className="news-placeholder">Henüz seçim yapmadınız.</p>
+          <p className="news-placeholder">No selections yet.</p>
         )}
       </div>
 
       <div className="notification-settings">
-        <button type="button" className="primary-outline" onClick={() => setShowNotificationSettings((prev) => !prev)}>
-          Bildirim ayarlarını değiştir
+        <button
+          type="button"
+          className="primary-outline"
+          onClick={() => setShowNotificationSettings((prev) => !prev)}
+        >
+          Change notification settings
         </button>
         {showNotificationSettings && (
           <div className="notification-panel">
@@ -91,11 +128,11 @@ const HomeClient = ({ initialCategories, initialFrequency, notificationsEnabled 
                 checked={allowNotifications}
                 onChange={(event) => setAllowNotifications(event.target.checked)}
               />
-              Bildirim almak istiyorum
+              I would like to receive notifications
             </label>
             {allowNotifications && (
               <fieldset>
-                <legend>Bildirim sıklığı</legend>
+                <legend>Notification frequency</legend>
                 {NOTIFICATION_FREQUENCIES.map((value) => (
                   <label key={value} className="frequency-option">
                     <input
@@ -110,14 +147,19 @@ const HomeClient = ({ initialCategories, initialFrequency, notificationsEnabled 
                 ))}
               </fieldset>
             )}
+            <button type="button" className="secondary-outline" onClick={handleDisableNotifications}>
+              I don't want notifications
+            </button>
           </div>
         )}
       </div>
 
+      <p className="notice small">{infoText}</p>
+
       {error && <p className="notice">{error}</p>}
 
       <button className="cta" onClick={handleViewNews}>
-        Haberleri göster
+        Show my news
       </button>
     </section>
   );
