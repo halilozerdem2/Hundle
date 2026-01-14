@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AVAILABLE_CATEGORIES,
+  CATEGORY_LABELS,
   NOTIFICATION_FREQUENCIES,
   type Category,
   type NotificationFrequency
@@ -36,7 +37,7 @@ const HomeClient = ({
   );
 
   const selectionLabel = selectedCategories.length
-    ? selectedCategories.join(', ')
+    ? selectedCategories.map((category) => CATEGORY_LABELS[category]).join(', ')
     : 'no categories selected yet';
 
   const toggleCategory = (category: Category) => {
@@ -92,7 +93,7 @@ const HomeClient = ({
             className={`category-pill ${selectedCategories.includes(category) ? 'active' : ''}`}
             onClick={() => toggleCategory(category)}
           >
-            {category}
+            {CATEGORY_LABELS[category]}
           </button>
         ))}
       </div>
@@ -103,10 +104,10 @@ const HomeClient = ({
           <div className="tag-list">
             {selectedCategories.map((category) => (
               <span key={category} className="tag">
-                {category}
+                {CATEGORY_LABELS[category]}
               </span>
             ))}
-          </div>
+         </div>
         ) : (
           <p className="news-placeholder">No selections yet.</p>
         )}

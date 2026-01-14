@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { fetchNews } from '@news/news-core';
 import {
   AVAILABLE_CATEGORIES,
+  CATEGORY_LABELS,
   NOTIFICATION_FREQUENCIES,
   type Category,
   type NewsArticle,
@@ -81,7 +82,7 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
               <div className="tag-list">
                 {categories.map((category) => (
                   <span key={category} className="tag">
-                    {category}
+                    {CATEGORY_LABELS[category]}
                   </span>
                 ))}
               </div>

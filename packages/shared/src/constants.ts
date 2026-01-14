@@ -34,6 +34,40 @@ export const AVAILABLE_CATEGORIES: Category[] = [
   'history'
 ];
 
+export const CATEGORY_LABELS: Record<Category, string> = {
+  technology: 'Technology',
+  business: 'Business',
+  sports: 'Sports',
+  science: 'Science',
+  politics: 'Politics',
+  health: 'Health',
+  entertainment: 'Entertainment',
+  travel: 'Travel',
+  finance: 'Finance',
+  gaming: 'Gaming',
+  education: 'Education',
+  energy: 'Energy',
+  environment: 'Environment',
+  startups: 'Startups',
+  automotive: 'Automotive',
+  fashion: 'Fashion',
+  food: 'Food',
+  'real-estate': 'Real Estate',
+  world: 'World',
+  local: 'Local',
+  culture: 'Culture',
+  security: 'Security',
+  defense: 'Defense',
+  weather: 'Weather',
+  celebrity: 'Celebrity',
+  movies: 'Movies',
+  music: 'Music',
+  art: 'Art',
+  literature: 'Literature',
+  space: 'Space',
+  history: 'History'
+};
+
 export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = ['30m', '1h', '3h', '1d'];
 
 export const FREQUENCY_CRON: Record<NotificationFrequency, string> = {
