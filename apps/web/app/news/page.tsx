@@ -24,12 +24,13 @@ const buildDescription = (categories: Category[]) =>
 
 const NewsPage = async ({ searchParams }: NewsPageProps) => {
   const categories = parseCategories(searchParams?.categories);
-  const headingDescription = categories.length
+  const hasSelection = categories.length > 0;
+  const headingDescription = hasSelection
     ? buildDescription(categories)
     : 'no categories selected yet';
   let articles: NewsArticle[] = [];
 
-  if (categories.length) {
+  if (hasSelection) {
     try {
       articles = await fetchNews(categories);
     } catch (error) {
@@ -50,15 +51,15 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
 
         <div className="news-page-divider" />
 
-        {!categories.length ? (
+        {!hasSelection && (
           <p className="news-placeholder">
             Choose at least one category on the home page to see your personalized feed.
           </p>
-        ) : articles.length ? (
-          <NewsClient articles={articles} categories={categories} />
-        ) : (
+        )}
+        {hasSelection && !articles.length && (
           <p className="news-placeholder">We could not find new stories right now.</p>
         )}
+        <NewsClient articles={articles} categories={categories} hasFetched={hasSelection} />
       </section>
     </main>
   );

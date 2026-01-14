@@ -7,9 +7,11 @@ import NewsFeed from '../components/news-feed';
 interface NewsClientProps {
   articles: NewsArticle[];
   categories: Category[];
+  hasFetched: boolean;
+  isLoading?: boolean;
 }
 
-const NewsClient = ({ articles, categories }: NewsClientProps) => {
+const NewsClient = ({ articles, categories, hasFetched, isLoading = false }: NewsClientProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -24,8 +26,8 @@ const NewsClient = ({ articles, categories }: NewsClientProps) => {
     <NewsFeed
       articles={articles}
       selectedCategories={categories}
-      hasFetched
-      isLoading={false}
+      hasFetched={hasFetched}
+      isLoading={isLoading}
     />
   );
 };
