@@ -61,11 +61,17 @@ const NewsClient = ({ initialCategories, initialArticles }: NewsClientProps) => 
           <p className="news-section-subtitle">Showing stories for</p>
           <h1>{selectionLabel}</h1>
         </div>
-        {!showSelection && (
-          <button type="button" className="link-button" onClick={() => setShowSelection(true)}>
-            Change categories
+        <div className="news-header-actions">
+          <button type="button" className="link-button" onClick={() => alert('Implement notification settings modal here.')}
+          >
+            Change notification settings
           </button>
-        )}
+          {!showSelection && (
+            <button type="button" className="link-button" onClick={() => setShowSelection(true)}>
+              Change categories
+            </button>
+          )}
+        </div>
       </header>
       <div className="news-page-divider" />
 
