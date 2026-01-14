@@ -69,6 +69,8 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
     }
   }
 
+  const getLabel = (category: Category) => CATEGORY_LABELS?.[category] ?? category;
+
   const changeCategoriesUrl = buildHomeUrl(categories, frequency, notificationsOff, 'categories');
   const changeNotificationsUrl = buildHomeUrl(categories, frequency, notificationsOff, 'notifications');
 
@@ -82,7 +84,7 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
               <div className="tag-list">
                 {categories.map((category) => (
                   <span key={category} className="tag">
-                    {CATEGORY_LABELS[category]}
+                    {getLabel(category)}
                   </span>
                 ))}
               </div>

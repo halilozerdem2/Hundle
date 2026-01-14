@@ -36,8 +36,10 @@ const HomeClient = ({
     initialPanel === 'notifications'
   );
 
+  const getLabel = (category: Category) => CATEGORY_LABELS?.[category] ?? category;
+
   const selectionLabel = selectedCategories.length
-    ? selectedCategories.map((category) => CATEGORY_LABELS[category]).join(', ')
+    ? selectedCategories.map(getLabel).join(', ')
     : 'no categories selected yet';
 
   const toggleCategory = (category: Category) => {
@@ -93,7 +95,7 @@ const HomeClient = ({
             className={`category-pill ${selectedCategories.includes(category) ? 'active' : ''}`}
             onClick={() => toggleCategory(category)}
           >
-            {CATEGORY_LABELS[category]}
+            {getLabel(category)}
           </button>
         ))}
       </div>
@@ -104,7 +106,7 @@ const HomeClient = ({
           <div className="tag-list">
             {selectedCategories.map((category) => (
               <span key={category} className="tag">
-                {CATEGORY_LABELS[category]}
+                {getLabel(category)}
               </span>
             ))}
          </div>
