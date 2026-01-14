@@ -68,12 +68,20 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   history: 'History'
 };
 
-export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = ['30m', '1h', '3h', '1d', 'none'];
+export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = [
+  '1h',
+  '3h',
+  '6h',
+  '12h',
+  '24h',
+  'none'
+];
 
 export const FREQUENCY_CRON: Record<NotificationFrequency, string> = {
-  '30m': '*/30 * * * *',
   '1h': '0 * * * *',
   '3h': '0 */3 * * *',
-  '1d': '0 8 * * *',
+  '6h': '0 */6 * * *',
+  '12h': '0 */12 * * *',
+  '24h': '0 8 * * *',
   none: '0 0 1 1 *'
 };

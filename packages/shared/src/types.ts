@@ -31,7 +31,7 @@ export type Category =
   | 'space'
   | 'history';
 
-export type NotificationFrequency = '30m' | '1h' | '3h' | '1d' | 'none';
+export type NotificationFrequency = '1h' | '3h' | '6h' | '12h' | '24h' | 'none';
 
 export type Platform = 'android' | 'ios-pwa' | 'desktop';
 

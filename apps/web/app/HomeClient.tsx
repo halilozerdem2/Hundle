@@ -17,6 +17,15 @@ interface HomeClientProps {
   initialPanel?: 'categories' | 'notifications';
 }
 
+const FREQUENCY_LABELS: Record<NotificationFrequency, string> = {
+  '1h': '1 hour',
+  '3h': '3 hours',
+  '6h': '6 hours',
+  '12h': '12 hours',
+  '24h': '24 hours',
+  none: 'Do not send notifications'
+};
+
 const HomeClient = ({
   initialCategories,
   initialFrequency,
@@ -73,7 +82,7 @@ const HomeClient = ({
     if (frequency === 'none') {
       return 'Notifications are turned off.';
     }
-    return `You will receive updates every ${frequency}.`;
+    return `You will receive updates every ${FREQUENCY_LABELS[frequency]}.`;
   }, [frequency]);
 
   return (
@@ -132,7 +141,7 @@ const HomeClient = ({
                     checked={frequency === value}
                     onChange={() => setFrequency(value)}
                   />
-                  {value === 'none' ? 'Do not send notifications' : value}
+                  {FREQUENCY_LABELS[value]}
                 </label>
               ))}
             </fieldset>
