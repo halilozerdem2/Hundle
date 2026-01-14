@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020", "DOM"],
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@news/shared": ["packages/shared/src"],
+      "@news/shared/*": ["packages/shared/src/*"],
+      "@news/news-core": ["packages/news-core/src"],
+      "@news/news-core/*": ["packages/news-core/src/*"],
+      "@news/push-core": ["packages/push-core/src"],
+      "@news/push-core/*": ["packages/push-core/src/*"]
+    }
+  },
+  "include": []
+}

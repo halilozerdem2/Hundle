@@ -1,0 +1,45 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@news/shared": [
+        "../../packages/shared/src"
+      ],
+      "@news/shared/*": [
+        "../../packages/shared/src/*"
+      ],
+      "@news/news-core": [
+        "../../packages/news-core/src"
+      ],
+      "@news/news-core/*": [
+        "../../packages/news-core/src/*"
+      ],
+      "@news/push-core": [
+        "../../packages/push-core/src"
+      ],
+      "@news/push-core/*": [
+        "../../packages/push-core/src/*"
+      ]
+    },
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

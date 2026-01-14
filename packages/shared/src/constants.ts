@@ -1,0 +1,17 @@
+import { Category, NotificationFrequency } from './types';
+
+export const AVAILABLE_CATEGORIES: Category[] = [
+  'technology',
+  'business',
+  'sports',
+  'science'
+];
+
+export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = ['30m', '1h', '3h', '1d'];
+
+export const FREQUENCY_CRON: Record<NotificationFrequency, string> = {
+  '30m': '*/30 * * * *',
+  '1h': '0 * * * *',
+  '3h': '0 */3 * * *',
+  '1d': '0 8 * * *'
+};
