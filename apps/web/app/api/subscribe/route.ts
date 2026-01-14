@@ -36,7 +36,9 @@ const validateSubscription = (subscription?: PushSubscriptionJSON) => {
 
 export const POST = async (request: Request) => {
   const body = (await request.json()) as SubscribeRequestBody;
-  const categories = (body.categories ?? []).filter((category) => typeof category === 'string' && isCategory(category));
+  const categories = (body.categories ?? []).filter(
+    (category): category is Category => typeof category === 'string' && isCategory(category)
+  );
   const frequency = body.frequency && isFrequency(body.frequency) ? body.frequency : null;
   const platform = isPlatform(body.platform) ? body.platform : null;
   const subscription = validateSubscription(body.subscription);

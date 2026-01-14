@@ -37,7 +37,7 @@ const toUint8Array = (base64: string) => {
 
 const iosInstructions = 'Open Safari, tap the Share button, and choose "Add to Home Screen". Launch the installed PWA to enable push.';
 
-const evaluatePushCapability = () => {
+const evaluatePushCapability = (): PushCapability => {
   if (typeof window === 'undefined') {
     return { status: 'checking' } as const;
   }

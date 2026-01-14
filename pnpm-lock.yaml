@@ -8,9 +8,21 @@ importers:
 
   .:
     devDependencies:
+      '@types/node':
+        specifier: 20.11.30
+        version: 20.11.30
+      '@types/node-cron':
+        specifier: 3.0.11
+        version: 3.0.11
+      '@types/web-push':
+        specifier: 3.6.4
+        version: 3.6.4
       turbo:
         specifier: ^1.11.3
         version: 1.13.4
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
 
   apps/web:
     dependencies:
@@ -435,6 +447,10 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
+  /@types/node-cron@3.0.11:
+    resolution: {integrity: sha512-0ikrnug3/IyneSHqCBeslAhlK2aBfYek1fGo4bP4QnZPmiqSGRK+Oy7ZMisLWkesffJvQ1cqAcBnJC+8+nxIAg==}
+    dev: true
+
   /@types/node@20.11.30:
     resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
     dependencies:
@@ -456,6 +472,12 @@ packages:
     dependencies:
       '@types/prop-types': 15.7.15
       csstype: 3.2.3
+    dev: true
+
+  /@types/web-push@3.6.4:
+    resolution: {integrity: sha512-GnJmSr40H3RAnj0s34FNTcJi1hmWFV5KXugE0mYWnYhgTAHLJ/dJKAwDmvPJYMke0RplY2XE9LnM4hqSqKIjhQ==}
+    dependencies:
+      '@types/node': 20.11.30
     dev: true
 
   /acorn-walk@8.3.4:

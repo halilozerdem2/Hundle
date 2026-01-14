@@ -11,7 +11,9 @@ const isCategory = (value: string): value is Category =>
 
 export const POST = async (request: Request) => {
   const body = (await request.json()) as RequestBody;
-  const categories = (body.categories ?? []).filter((category) => typeof category === 'string' && isCategory(category));
+  const categories = (body.categories ?? []).filter(
+    (category): category is Category => typeof category === 'string' && isCategory(category)
+  );
 
   if (!categories.length) {
     return NextResponse.json(
