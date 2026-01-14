@@ -13,6 +13,28 @@ body {
   min-height: 100vh;
 }
 
+.site-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.site-header__brand {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  text-decoration: none;
+}
+
+.site-header__brand span {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 .app-shell {
   min-height: 100vh;
   display: flex;

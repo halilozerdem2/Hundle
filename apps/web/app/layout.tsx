@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import Header from '../components/Header';
 
 export const metadata: Metadata = {
   title: 'News Pulse',
@@ -29,6 +30,7 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang="en">
     <body>
+      <Header />
       <main className="app-shell">{children}</main>
     </body>
   </html>
