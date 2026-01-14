@@ -24,13 +24,17 @@ const buildDescription = (categories: Category[]) =>
 
 const NewsPage = async ({ searchParams }: NewsPageProps) => {
   const categories = parseCategories(searchParams?.categories);
-  const targetCategories = categories.length ? categories : AVAILABLE_CATEGORIES;
-
+  const headingDescription = categories.length
+    ? buildDescription(categories)
+    : 'no categories selected yet';
   let articles: NewsArticle[] = [];
-  try {
-    articles = await fetchNews(targetCategories);
-  } catch (error) {
-    console.error('Unable to fetch news', error);
+
+  if (categories.length) {
+    try {
+      articles = await fetchNews(categories);
+    } catch (error) {
+      console.error('Unable to fetch news', error);
+    }
   }
 
   return (
@@ -39,15 +43,19 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
         <header>
           <div>
             <p className="news-section-subtitle">Showing stories for</p>
-            <h1>{buildDescription(targetCategories)}</h1>
+            <h1>{headingDescription}</h1>
           </div>
           <Link href="/">↩︎ Change categories</Link>
         </header>
 
         <div className="news-page-divider" />
 
-        {articles.length ? (
-          <NewsClient articles={articles} categories={targetCategories} />
+        {!categories.length ? (
+          <p className="news-placeholder">
+            Choose at least one category on the home page to see your personalized feed.
+          </p>
+        ) : articles.length ? (
+          <NewsClient articles={articles} categories={categories} />
         ) : (
           <p className="news-placeholder">We could not find new stories right now.</p>
         )}
