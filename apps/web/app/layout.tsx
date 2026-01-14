@@ -1,12 +1,11 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'News Pulse',
   description: 'Curated push notifications that honor Android and iOS PWA constraints.',
   manifest: '/manifest.json',
-  themeColor: '#020617',
   icons: {
     icon: [
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
@@ -21,6 +20,10 @@ export const metadata: Metadata = {
     title: 'News Pulse',
     statusBarStyle: 'default'
   }
+};
+
+export const viewport: Viewport = {
+  themeColor: '#020617'
 };
 
 const RootLayout = ({ children }: { children: ReactNode }) => (
