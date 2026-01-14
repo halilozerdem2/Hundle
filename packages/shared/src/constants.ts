@@ -4,7 +4,13 @@ export const AVAILABLE_CATEGORIES: Category[] = [
   'technology',
   'business',
   'sports',
-  'science'
+  'science',
+  'politics',
+  'health',
+  'entertainment',
+  'travel',
+  'finance',
+  'gaming'
 ];
 
 export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = ['30m', '1h', '3h', '1d'];

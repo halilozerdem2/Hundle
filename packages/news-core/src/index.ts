@@ -3,7 +3,7 @@ import { Category, NewsArticle } from '@news/shared';
 const stamp = (minutesAgo: number) =>
   new Date(Date.now() - minutesAgo * 60 * 1000).toISOString();
 
-const categorySeeds: Record<Category, NewsArticle[]> = {
+const categorySeeds: Partial<Record<Category, NewsArticle[]>> = {
   technology: [
     {
       id: 'tech-1',
@@ -204,7 +204,13 @@ const fallbackSources: Record<Category, string> = {
   technology: 'https://news.google.com/search?q=technology+news',
   business: 'https://news.google.com/search?q=business+markets',
   sports: 'https://news.google.com/search?q=sports+highlights',
-  science: 'https://news.google.com/search?q=science+discoveries'
+  science: 'https://news.google.com/search?q=science+discoveries',
+  politics: 'https://news.google.com/search?q=politics+briefing',
+  health: 'https://news.google.com/search?q=health+trends',
+  entertainment: 'https://news.google.com/search?q=entertainment+headlines',
+  travel: 'https://news.google.com/search?q=travel+destinations',
+  finance: 'https://news.google.com/search?q=finance+markets',
+  gaming: 'https://news.google.com/search?q=gaming+news'
 };
 
 export const fetchNews = async (categories: Category[]): Promise<NewsArticle[]> => {

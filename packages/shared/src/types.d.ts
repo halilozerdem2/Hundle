@@ -1,4 +1,14 @@
-export type Category = 'technology' | 'business' | 'sports' | 'science';
+export type Category =
+  | 'technology'
+  | 'business'
+  | 'sports'
+  | 'science'
+  | 'politics'
+  | 'health'
+  | 'entertainment'
+  | 'travel'
+  | 'finance'
+  | 'gaming';
 export type NotificationFrequency = '30m' | '1h' | '3h' | '1d';
 export type Platform = 'android' | 'ios-pwa' | 'desktop';
 export interface NewsArticle {
