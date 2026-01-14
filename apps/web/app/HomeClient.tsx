@@ -25,8 +25,9 @@ const HomeClient = ({
 }: HomeClientProps) => {
   const router = useRouter();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>(initialCategories);
-  const [allowNotifications, setAllowNotifications] = useState(notificationsEnabled);
-  const [frequency, setFrequency] = useState<NotificationFrequency>(initialFrequency);
+  const [frequency, setFrequency] = useState<NotificationFrequency>(
+    notificationsEnabled ? initialFrequency : 'none'
+  );
   const [error, setError] = useState<string | null>(null);
 
   const [showSelection, setShowSelection] = useState(
@@ -48,15 +49,10 @@ const HomeClient = ({
     );
   };
 
-  const handleDisableNotifications = () => {
-    setAllowNotifications(false);
-    setShowNotificationSettings(false);
-  };
-
   const buildNewsUrl = () => {
     const params = new URLSearchParams();
     params.set('categories', selectedCategories.join(','));
-    if (!allowNotifications) {
+    if (frequency === 'none') {
       params.set('notifications', 'off');
     } else {
       params.set('frequency', frequency);
@@ -74,11 +70,11 @@ const HomeClient = ({
   };
 
   const infoText = useMemo(() => {
-    if (!allowNotifications) {
+    if (frequency === 'none') {
       return 'Notifications are turned off.';
     }
     return `You will receive updates every ${frequency}.`;
-  }, [allowNotifications, frequency]);
+  }, [frequency]);
 
   return (
     <section className="card home-panel">
@@ -125,34 +121,21 @@ const HomeClient = ({
         </button>
         {showNotificationSettings && (
           <div className="notification-panel">
-            <label className="switch-row">
-              <input
-                type="checkbox"
-                checked={allowNotifications}
-                onChange={(event) => setAllowNotifications(event.target.checked)}
-              />
-              I would like to receive notifications
-            </label>
-            {allowNotifications && (
-              <fieldset>
-                <legend>Notification frequency</legend>
-                {NOTIFICATION_FREQUENCIES.map((value) => (
-                  <label key={value} className="frequency-option">
-                    <input
-                      type="radio"
-                      name="frequency"
-                      value={value}
-                      checked={frequency === value}
-                      onChange={() => setFrequency(value)}
-                    />
-                    {value}
-                  </label>
-                ))}
-              </fieldset>
-            )}
-            <button type="button" className="secondary-outline" onClick={handleDisableNotifications}>
-              I don't want notifications
-            </button>
+            <fieldset>
+              <legend>Notification frequency</legend>
+              {NOTIFICATION_FREQUENCIES.map((value) => (
+                <label key={value} className="frequency-option">
+                  <input
+                    type="radio"
+                    name="frequency"
+                    value={value}
+                    checked={frequency === value}
+                    onChange={() => setFrequency(value)}
+                  />
+                  {value === 'none' ? 'Do not send notifications' : value}
+                </label>
+              ))}
+            </fieldset>
           </div>
         )}
       </div>

@@ -71,8 +71,18 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
 
   const getLabel = (category: Category) => CATEGORY_LABELS?.[category] ?? category;
 
-  const changeCategoriesUrl = buildHomeUrl(categories, frequency, notificationsOff, 'categories');
-  const changeNotificationsUrl = buildHomeUrl(categories, frequency, notificationsOff, 'notifications');
+  const changeCategoriesUrl = buildHomeUrl(
+    categories,
+    frequency,
+    notificationsOff || frequency === 'none',
+    'categories'
+  );
+  const changeNotificationsUrl = buildHomeUrl(
+    categories,
+    frequency,
+    notificationsOff || frequency === 'none',
+    'notifications'
+  );
 
   return (
     <main className="news-page-shell">
@@ -92,7 +102,9 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
               <p className="news-placeholder">No categories selected.</p>
             )}
             <p className="notice small">
-              {notificationsOff ? 'Notifications are disabled.' : `Notification frequency: ${frequency}`}
+              {notificationsOff || frequency === 'none'
+                ? 'Notifications are disabled.'
+                : `Notification frequency: ${frequency}`}
             </p>
           </div>
           <div className="summary-actions">

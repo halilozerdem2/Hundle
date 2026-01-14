@@ -36,7 +36,10 @@ const isPanel = (value?: string): value is Panel =>
 const Page = ({ searchParams }: HomePageProps) => {
   const categories = parseCategories(searchParams?.categories);
   const notificationsEnabled = searchParams?.notifications !== 'off';
-  const frequency = isFrequency(searchParams?.frequency) ? searchParams.frequency! : '1h';
+  const requestedFrequency = isFrequency(searchParams?.frequency)
+    ? searchParams.frequency!
+    : '1h';
+  const frequency = notificationsEnabled ? requestedFrequency : 'none';
   const panel = isPanel(searchParams?.panel) ? searchParams?.panel : undefined;
 
   return (
