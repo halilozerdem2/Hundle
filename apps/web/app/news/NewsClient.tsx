@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AVAILABLE_CATEGORIES, type Category, type NewsArticle } from "@news/shared";
-import NewsFeed from "../components/news-feed";
+import { useState } from 'react';
+import { AVAILABLE_CATEGORIES, type Category, type NewsArticle } from '@news/shared';
+import NewsFeed from '../components/news-feed';
 
 interface NewsClientProps {
   initialCategories: Category[];
@@ -15,6 +15,11 @@ const NewsClient = ({ initialCategories, initialArticles }: NewsClientProps) => 
   const [hasFetched, setHasFetched] = useState(initialArticles.length > 0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSelection, setShowSelection] = useState(initialCategories.length === 0);
+
+  const selectionLabel = selectedCategories.length
+    ? selectedCategories.join(', ')
+    : 'no categories selected yet';
 
   const toggleCategory = (category: Category) => {
     setSelectedCategories((prev) =>
@@ -24,25 +29,26 @@ const NewsClient = ({ initialCategories, initialArticles }: NewsClientProps) => 
 
   const fetchNews = async () => {
     if (!selectedCategories.length) {
-      setError("Please select at least one category.");
+      setError('Please select at least one category.');
       return;
     }
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/news", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/news', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ categories: selectedCategories })
       });
       if (!response.ok) {
-        throw new Error("Failed to load news.");
+        throw new Error('Failed to load news.');
       }
       const payload = (await response.json()) as { articles: NewsArticle[] };
       setArticles(payload.articles);
       setHasFetched(true);
+      setShowSelection(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load news.");
+      setError(err instanceof Error ? err.message : 'Unable to load news.');
     } finally {
       setIsLoading(false);
     }
@@ -50,24 +56,45 @@ const NewsClient = ({ initialCategories, initialArticles }: NewsClientProps) => 
 
   return (
     <div className="news-selection-panel">
-      <fieldset>
-        <legend>Select categories</legend>
-        <div className="category-grid">
-          {AVAILABLE_CATEGORIES.map((category) => (
-            <label key={category} className={`category-option ${selectedCategories.includes(category) ? "selected" : ""}`}>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes(category)}
-                onChange={() => toggleCategory(category)}
-              />
-              {category}
-            </label>
-          ))}
+      <header className="news-section-header">
+        <div>
+          <p className="news-section-subtitle">Showing stories for</p>
+          <h1>{selectionLabel}</h1>
         </div>
-      </fieldset>
-      <button onClick={fetchNews} disabled={!selectedCategories.length || isLoading}>
-        {isLoading ? "Loading…" : hasFetched ? "Refresh news" : "Fetch my news"}
-      </button>
+        {!showSelection && (
+          <button type="button" className="link-button" onClick={() => setShowSelection(true)}>
+            Change categories
+          </button>
+        )}
+      </header>
+      <div className="news-page-divider" />
+
+      {showSelection && (
+        <>
+          <fieldset>
+            <legend>Select categories</legend>
+            <div className="category-grid">
+              {AVAILABLE_CATEGORIES.map((category) => (
+                <label
+                  key={category}
+                  className={`category-option ${selectedCategories.includes(category) ? 'selected' : ''}`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(category)}
+                    onChange={() => toggleCategory(category)}
+                  />
+                  {category}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <button onClick={fetchNews} disabled={!selectedCategories.length || isLoading}>
+            {isLoading ? 'Loading…' : hasFetched ? 'Refresh news' : 'Fetch my news'}
+          </button>
+        </>
+      )}
+
       {error && <p className="notice">{error}</p>}
 
       {hasFetched ? (
@@ -77,9 +104,9 @@ const NewsClient = ({ initialCategories, initialArticles }: NewsClientProps) => 
           hasFetched
           isLoading={isLoading}
         />
-      ) : (
+      ) : !showSelection ? (
         <p className="news-placeholder">Pick at least one category to load stories.</p>
-      )}
+      ) : null}
     </div>
   );
 };
