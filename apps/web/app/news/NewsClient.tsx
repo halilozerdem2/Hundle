@@ -83,7 +83,7 @@ const NewsClient = ({
         params.set('frequency', nextFrequency);
       }
       const query = params.toString();
-      return query ? `/news?${query}` : '/news';
+      return query ? `/?${query}` : '/';
     },
     []
   );
@@ -96,15 +96,27 @@ const NewsClient = ({
     [buildNewsUrl, router]
   );
 
-  const toggleCategory = useCallback((category: Category) => {
-    setCategoryDraft((prev) =>
-      prev.includes(category) ? prev.filter((item) => item !== category) : [...prev, category]
-    );
-  }, []);
+  const syncCategories = useCallback(
+    (nextCategories: Category[]) => {
+      setCategoryDraft(nextCategories);
+      applyPreferences(nextCategories, frequencyDraft);
+      setActiveTab('news');
+    },
+    [applyPreferences, frequencyDraft]
+  );
 
-  const handleApplyCategories = useCallback(() => {
-    applyPreferences(categoryDraft, frequencyDraft);
-  }, [applyPreferences, categoryDraft, frequencyDraft]);
+  const toggleCategory = useCallback(
+    (category: Category) => {
+      setCategoryDraft((prev) => {
+        const next = prev.includes(category)
+          ? prev.filter((item) => item !== category)
+          : [...prev, category];
+        syncCategories(next);
+        return next;
+      });
+    },
+    [syncCategories]
+  );
 
   const handleApplyNotifications = useCallback(() => {
     applyPreferences(categoryDraft, frequencyDraft);
@@ -139,11 +151,6 @@ const NewsClient = ({
       ) : (
         <p className="news-placeholder">{copy.home.interestsEmpty}</p>
       )}
-      <div className="tab-actions">
-        <button type="button" className="cta" onClick={handleApplyCategories}>
-          {tabLabels.applyCategories}
-        </button>
-      </div>
     </div>
   );
 
