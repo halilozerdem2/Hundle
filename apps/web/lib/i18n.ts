@@ -31,19 +31,7 @@ const turkishCategoryLabels: Record<Category, string> = {
   automotive: 'Otomotiv',
   fashion: 'Moda',
   food: 'Yemek',
-  'real-estate': 'Gayrimenkul',
-  world: 'Dünya',
-  local: 'Yerel',
-  culture: 'Kültür',
-  security: 'Güvenlik',
-  defense: 'Savunma',
-  weather: 'Hava Durumu',
-  celebrity: 'Ünlüler',
-  movies: 'Filmler',
-  art: 'Sanat',
-  literature: 'Edebiyat',
-  space: 'Uzay',
-  history: 'Tarih'
+  'real-estate': 'Gayrimenkul'
 };
 
 const englishFrequencyLabels: Record<NotificationFrequency, string> = {
