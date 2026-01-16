@@ -1,19 +1,18 @@
-import HomeClient from './HomeClient';
+import { fetchNews } from '@news/news-core';
 import {
   AVAILABLE_CATEGORIES,
   NOTIFICATION_FREQUENCIES,
   type Category,
+  type NewsArticle,
   type NotificationFrequency
 } from '@news/shared';
+import NewsClient from './news/NewsClient';
 
-type Panel = 'categories' | 'notifications';
-
-interface HomePageProps {
+interface NewsPageProps {
   searchParams?: {
     categories?: string;
     frequency?: string;
     notifications?: string;
-    panel?: string;
   };
 }
 
@@ -30,25 +29,31 @@ const parseCategories = (value?: string): Category[] => {
 const isFrequency = (value?: string): value is NotificationFrequency =>
   !!value && NOTIFICATION_FREQUENCIES.includes(value as NotificationFrequency);
 
-const isPanel = (value?: string): value is Panel =>
-  value === 'categories' || value === 'notifications';
-
-const Page = ({ searchParams }: HomePageProps) => {
+const Page = async ({ searchParams }: NewsPageProps) => {
   const categories = parseCategories(searchParams?.categories);
-  const notificationsEnabled = searchParams?.notifications !== 'off';
-  const requestedFrequency = isFrequency(searchParams?.frequency)
-    ? searchParams.frequency!
-    : '1h';
-  const frequency = notificationsEnabled ? requestedFrequency : 'none';
-  const panel = isPanel(searchParams?.panel) ? searchParams?.panel : undefined;
+  const notificationsOff = searchParams?.notifications === 'off';
+  const frequency = isFrequency(searchParams?.frequency) ? searchParams.frequency! : '1h';
+
+  let articles: NewsArticle[] = [];
+  if (categories.length) {
+    try {
+      articles = await fetchNews(categories);
+    } catch (error) {
+      console.error('Unable to fetch news', error);
+    }
+  }
 
   return (
-    <HomeClient
-      initialCategories={categories}
-      initialFrequency={frequency}
-      notificationsEnabled={notificationsEnabled}
-      initialPanel={panel}
-    />
+    <main className="news-page-shell">
+      <section className="news-page-card">
+        <NewsClient
+          articles={articles}
+          selectedCategories={categories}
+          frequency={frequency}
+          notificationsDisabled={notificationsOff || frequency === 'none'}
+        />
+      </section>
+    </main>
   );
 };
 

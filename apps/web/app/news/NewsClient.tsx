@@ -241,15 +241,6 @@ const NewsClient = ({
       <div className="news-tabs__list" role="tablist">
         <button
           type="button"
-          className={activeTab === 'interests' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('interests')}
-          role="tab"
-          aria-selected={activeTab === 'interests'}
-        >
-          {tabLabels.interestsTab}
-        </button>
-        <button
-          type="button"
           className={activeTab === 'news' ? 'tab active' : 'tab'}
           onClick={() => setActiveTab('news')}
           role="tab"
@@ -259,12 +250,12 @@ const NewsClient = ({
         </button>
         <button
           type="button"
-          className={activeTab === 'notifications' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('notifications')}
+          className={activeTab === 'interests' ? 'tab active' : 'tab'}
+          onClick={() => setActiveTab('interests')}
           role="tab"
-          aria-selected={activeTab === 'notifications'}
+          aria-selected={activeTab === 'interests'}
         >
-          {tabLabels.notificationsTab}
+          {tabLabels.interestsTab}
         </button>
         <button
           type="button"
@@ -274,6 +265,15 @@ const NewsClient = ({
           aria-selected={activeTab === 'readLater'}
         >
           {tabLabels.readLaterTab}
+        </button>
+        <button
+          type="button"
+          className={activeTab === 'notifications' ? 'tab active' : 'tab'}
+          onClick={() => setActiveTab('notifications')}
+          role="tab"
+          aria-selected={activeTab === 'notifications'}
+        >
+          {tabLabels.notificationsTab}
         </button>
       </div>
       <div className="news-tabs__panel" role="tabpanel">
