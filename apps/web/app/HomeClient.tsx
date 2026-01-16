@@ -4,11 +4,11 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AVAILABLE_CATEGORIES,
-  CATEGORY_LABELS,
   NOTIFICATION_FREQUENCIES,
   type Category,
   type NotificationFrequency
 } from '@news/shared';
+import { useLanguage } from '../components/LanguageProvider';
 
 interface HomeClientProps {
   initialCategories: Category[];
@@ -17,15 +17,6 @@ interface HomeClientProps {
   initialPanel?: 'categories' | 'notifications';
 }
 
-const FREQUENCY_LABELS: Record<NotificationFrequency, string> = {
-  '1h': '1 hour',
-  '3h': '3 hours',
-  '6h': '6 hours',
-  '12h': '12 hours',
-  '24h': '24 hours',
-  none: 'Do not send notifications'
-};
-
 const HomeClient = ({
   initialCategories,
   initialFrequency,
@@ -33,11 +24,13 @@ const HomeClient = ({
   initialPanel
 }: HomeClientProps) => {
   const router = useRouter();
+  const { copy } = useLanguage();
+  const frequencyLabels = copy.frequencyLabels;
   const [selectedCategories, setSelectedCategories] = useState<Category[]>(initialCategories);
   const [frequency, setFrequency] = useState<NotificationFrequency>(
     notificationsEnabled ? initialFrequency : 'none'
   );
-  const [error, setError] = useState<string | null>(null);
+  const [errorKey, setErrorKey] = useState<'selection' | null>(null);
 
   const [showSelection, setShowSelection] = useState(
     initialPanel === 'categories' || initialCategories.length === 0
@@ -46,11 +39,7 @@ const HomeClient = ({
     initialPanel === 'notifications'
   );
 
-  const getLabel = (category: Category) => CATEGORY_LABELS?.[category] ?? category;
-
-  const selectionLabel = selectedCategories.length
-    ? selectedCategories.map(getLabel).join(', ')
-    : 'no categories selected yet';
+  const getLabel = (category: Category) => copy.categoryLabels?.[category] ?? category;
 
   const toggleCategory = (category: Category) => {
     setSelectedCategories((prev) =>
@@ -71,25 +60,25 @@ const HomeClient = ({
 
   const handleViewNews = () => {
     if (!selectedCategories.length) {
-      setError('Please pick at least one category.');
+      setErrorKey('selection');
       return;
     }
-    setError(null);
+    setErrorKey(null);
     router.push(buildNewsUrl());
   };
 
   const infoText = useMemo(() => {
     if (frequency === 'none') {
-      return 'Notifications are turned off.';
+      return copy.home.notificationsOff;
     }
-    return `You will receive updates every ${FREQUENCY_LABELS[frequency]}.`;
-  }, [frequency]);
+    return copy.home.notificationsInfo(frequencyLabels[frequency]);
+  }, [copy.home, frequency, frequencyLabels]);
 
   return (
     <section className="card home-panel">
       <header>
-        <h1>Build your news feed</h1>
-        <p>Select the topics that matter. We will pull matching stories and optionally nudge you.</p>
+        <h1>{copy.home.heroTitle}</h1>
+        <p>{copy.home.heroSubtitle}</p>
       </header>
 
       <div className="category-bar">
@@ -106,7 +95,7 @@ const HomeClient = ({
       </div>
 
       <div className="selected-interests">
-        <h2>My interests</h2>
+        <h2>{copy.home.myInterests}</h2>
         {selectedCategories.length ? (
           <div className="tag-list">
             {selectedCategories.map((category) => (
@@ -114,9 +103,9 @@ const HomeClient = ({
                 {getLabel(category)}
               </span>
             ))}
-         </div>
+          </div>
         ) : (
-          <p className="news-placeholder">No selections yet.</p>
+          <p className="news-placeholder">{copy.home.interestsEmpty}</p>
         )}
       </div>
 
@@ -126,12 +115,12 @@ const HomeClient = ({
           className="primary-outline"
           onClick={() => setShowNotificationSettings((prev) => !prev)}
         >
-          Change notification settings
+          {copy.home.changeNotifications}
         </button>
         {showNotificationSettings && (
           <div className="notification-panel">
             <fieldset>
-              <legend>Notification frequency</legend>
+              <legend>{copy.home.notificationFrequencyLabel}</legend>
               {NOTIFICATION_FREQUENCIES.map((value) => (
                 <label key={value} className="frequency-option">
                   <input
@@ -141,7 +130,7 @@ const HomeClient = ({
                     checked={frequency === value}
                     onChange={() => setFrequency(value)}
                   />
-                  {FREQUENCY_LABELS[value]}
+                  {frequencyLabels[value]}
                 </label>
               ))}
             </fieldset>
@@ -151,10 +140,10 @@ const HomeClient = ({
 
       <p className="notice small">{infoText}</p>
 
-      {error && <p className="notice">{error}</p>}
+      {errorKey && <p className="notice">{copy.home.selectionError}</p>}
 
       <button className="cta" onClick={handleViewNews}>
-        Show my news
+        {copy.home.showNewsCta}
       </button>
     </section>
   );

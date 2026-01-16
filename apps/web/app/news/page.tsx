@@ -1,16 +1,12 @@
-import Link from 'next/link';
 import { fetchNews } from '@news/news-core';
 import {
   AVAILABLE_CATEGORIES,
-  CATEGORY_LABELS,
   NOTIFICATION_FREQUENCIES,
   type Category,
   type NewsArticle,
   type NotificationFrequency
 } from '@news/shared';
-import NewsFeed from '../components/news-feed';
-
-type Panel = 'categories' | 'notifications';
+import NewsClient from './NewsClient';
 
 interface NewsPageProps {
   searchParams?: {
@@ -33,28 +29,6 @@ const parseCategories = (value?: string): Category[] => {
 const isFrequency = (value?: string): value is NotificationFrequency =>
   !!value && NOTIFICATION_FREQUENCIES.includes(value as NotificationFrequency);
 
-const buildHomeUrl = (
-  categories: Category[],
-  frequency?: NotificationFrequency,
-  notificationsOff?: boolean,
-  panel?: Panel
-) => {
-  const params = new URLSearchParams();
-  if (categories.length) {
-    params.set('categories', categories.join(','));
-  }
-  if (notificationsOff) {
-    params.set('notifications', 'off');
-  } else if (frequency) {
-    params.set('frequency', frequency);
-  }
-  if (panel) {
-    params.set('panel', panel);
-  }
-  const query = params.toString();
-  return query ? `/?${query}` : '/';
-};
-
 const NewsPage = async ({ searchParams }: NewsPageProps) => {
   const categories = parseCategories(searchParams?.categories);
   const notificationsOff = searchParams?.notifications === 'off';
@@ -69,68 +43,15 @@ const NewsPage = async ({ searchParams }: NewsPageProps) => {
     }
   }
 
-  const getLabel = (category: Category) => CATEGORY_LABELS?.[category] ?? category;
-
-  const changeCategoriesUrl = buildHomeUrl(
-    categories,
-    frequency,
-    notificationsOff || frequency === 'none',
-    'categories'
-  );
-  const changeNotificationsUrl = buildHomeUrl(
-    categories,
-    frequency,
-    notificationsOff || frequency === 'none',
-    'notifications'
-  );
-
   return (
     <main className="news-page-shell">
       <section className="news-page-card">
-        <div className="news-selection-summary">
-          <div>
-            <p className="news-section-subtitle">Selected categories</p>
-            {categories.length ? (
-              <div className="tag-list">
-                {categories.map((category) => (
-                  <span key={category} className="tag">
-                    {getLabel(category)}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="news-placeholder">No categories selected.</p>
-            )}
-            <p className="notice small">
-              {notificationsOff || frequency === 'none'
-                ? 'Notifications are disabled.'
-                : `Notification frequency: ${frequency}`}
-            </p>
-          </div>
-          <div className="summary-actions">
-            <Link className="primary-outline" href={changeNotificationsUrl}>
-              Change notification settings
-            </Link>
-            <Link className="primary-outline" href={changeCategoriesUrl}>
-              Change categories
-            </Link>
-          </div>
-        </div>
-
-        <div className="news-page-divider" />
-
-        {!categories.length ? (
-          <p className="news-placeholder">Return to the previous page to select at least one category.</p>
-        ) : articles.length ? (
-          <NewsFeed
-            articles={articles}
-            selectedCategories={categories}
-            hasFetched
-            isLoading={false}
-          />
-        ) : (
-          <p className="news-placeholder">No fresh stories for this selection at the moment.</p>
-        )}
+        <NewsClient
+          articles={articles}
+          selectedCategories={categories}
+          frequency={frequency}
+          notificationsDisabled={notificationsOff || frequency === 'none'}
+        />
       </section>
     </main>
   );

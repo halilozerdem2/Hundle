@@ -15,15 +15,18 @@ body {
 
 .site-header {
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .site-header__brand {
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  gap: 1rem;
   text-decoration: none;
   color: #f8fafc;
 }
@@ -35,16 +38,47 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(148, 163, 184, 0.3);
-  margin-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
-.site-header__brand span {
+.site-header__logo-image {
+  object-fit: cover;
+}
+
+.site-header__label {
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.site-header__language {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-toggle {
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: transparent;
+  color: #f8fafc;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.language-toggle--active {
+  border-color: rgba(59, 130, 246, 0.8);
+  background: rgba(59, 130, 246, 0.2);
 }
 
 .app-shell {
@@ -54,6 +88,7 @@ body {
   justify-content: center;
   padding: 2rem;
   background: radial-gradient(circle at top, #0f172a, #020617 65%);
+  width: 100%;
 }
 
 .card {
@@ -431,20 +466,144 @@ button.secondary {
 }
 
 .news-filter .tab {
-  border-radius: 999px;
-  padding: 0.45rem 1.1rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: transparent;
-  color: #e2e8f0;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  width: auto;
+  flex: 0 0 auto;
+  padding: 0.75rem 1.25rem;
 }
 
-.news-filter .tab.active {
-  background: rgba(59, 130, 246, 0.2);
+.tab {
+  border-radius: 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.75);
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  box-shadow: inset 0 -2px 0 rgba(148, 163, 184, 0.2);
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.85rem;
+  pointer-events: none;
+  box-shadow: 0 5px 12px rgba(15, 23, 42, 0.35);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tab:hover {
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.tab.active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(99, 102, 241, 0.4));
+  border-color: rgba(99, 102, 241, 0.8);
+  color: #f8fafc;
+  transform: translateY(-4px);
+  box-shadow: inset 0 -3px 0 rgba(99, 102, 241, 0.4);
+}
+
+.tab.active::after {
+  opacity: 1;
+}
+
+.news-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.news-tabs__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.news-tabs__header h1 {
+  margin: 0;
+}
+
+.news-tabs__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 1.25rem;
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+.news-tabs__panel {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  width: 100%;
+  align-self: stretch;
+}
+
+.news-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.tab-panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tab-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  margin: 0 0 0.35rem;
+  color: #94a3b8;
+}
+
+.bookmark-button {
+  width: auto;
+  margin: 0;
+  margin-top: 0.75rem;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  color: #e0f2fe;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.bookmark-button--active {
   border-color: rgba(59, 130, 246, 0.8);
+  background: rgba(59, 130, 246, 0.2);
   color: #bfdbfe;
+}
+
+.tab-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 @keyframes fadeIn {
@@ -465,10 +624,14 @@ button.secondary {
   color: #f8fafc;
   display: flex;
   justify-content: center;
+  align-items: stretch;
+  width: 100%;
 }
 
 .news-page-card {
-  width: min(1080px, 100%);
+  width: 100%;
+  max-width: 1080px;
+  flex: 1 1 100%;
   margin: 0 auto;
   background: rgba(15, 23, 42, 0.85);
   border-radius: 1.75rem;
