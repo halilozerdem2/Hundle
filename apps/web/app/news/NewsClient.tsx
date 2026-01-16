@@ -195,7 +195,7 @@ const NewsClient = ({
         }
         const swRegistration = readyRegistration ?? registration;
         if (!swRegistration?.pushManager) {
-          return;
+          return 'unsupported';
         }
         const existingSubscription = await swRegistration.pushManager.getSubscription();
         const keyArray = convertVapidKey(VAPID_PUBLIC_KEY);
