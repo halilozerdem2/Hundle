@@ -200,7 +200,7 @@ const NewsClient = ({
         const existingSubscription = await swRegistration.pushManager.getSubscription();
         const keyArray = convertVapidKey(VAPID_PUBLIC_KEY);
         if (!keyArray) {
-          return;
+          return 'unsupported';
         }
         const subscription =
           existingSubscription ??
@@ -209,7 +209,7 @@ const NewsClient = ({
             applicationServerKey: keyArray
           }));
         if (!subscription) {
-          return;
+          return 'unsupported';
         }
         const platform = detectPlatform();
         await fetch('/api/subscribe', {
