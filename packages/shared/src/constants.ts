@@ -1,6 +1,8 @@
 import { Category, NotificationFrequency } from './types';
 
 export const AVAILABLE_CATEGORIES: Category[] = [
+  'ai',
+  'game-development',
   'technology',
   'business',
   'sports',
@@ -18,23 +20,12 @@ export const AVAILABLE_CATEGORIES: Category[] = [
   'automotive',
   'fashion',
   'food',
-  'real-estate',
-  'world',
-  'local',
-  'culture',
-  'security',
-  'defense',
-  'weather',
-  'celebrity',
-  'movies',
-  'music',
-  'art',
-  'literature',
-  'space',
-  'history'
+  'real-estate'
 ];
 
 export const CATEGORY_LABELS: Record<Category, string> = {
+  ai: 'Artificial Intelligence',
+  'game-development': 'Game Development',
   technology: 'Technology',
   business: 'Business',
   sports: 'Sports',
@@ -52,20 +43,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   automotive: 'Automotive',
   fashion: 'Fashion',
   food: 'Food',
-  'real-estate': 'Real Estate',
-  world: 'World',
-  local: 'Local',
-  culture: 'Culture',
-  security: 'Security',
-  defense: 'Defense',
-  weather: 'Weather',
-  celebrity: 'Celebrity',
-  movies: 'Movies',
-  music: 'Music',
-  art: 'Art',
-  literature: 'Literature',
-  space: 'Space',
-  history: 'History'
+  'real-estate': 'Real Estate'
 };
 
 export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = [

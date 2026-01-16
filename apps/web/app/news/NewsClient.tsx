@@ -58,6 +58,8 @@ interface NewsClientProps {
   notificationsDisabled: boolean;
 }
 
+const READ_LATER_STORAGE_KEY = 'hundle_read_later';
+
 const NewsClient = ({
   articles,
   selectedCategories,
@@ -83,6 +85,34 @@ const NewsClient = ({
   useEffect(() => {
     setFrequencyDraft(notificationsDisabled ? 'none' : frequency);
   }, [frequency, notificationsDisabled]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    try {
+      const stored = window.localStorage.getItem(READ_LATER_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored) as NewsArticle[];
+        if (Array.isArray(parsed)) {
+          setReadLater(parsed);
+        }
+      }
+    } catch (error) {
+      console.error('Unable to load saved articles', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    try {
+      window.localStorage.setItem(READ_LATER_STORAGE_KEY, JSON.stringify(readLater));
+    } catch (error) {
+      console.error('Unable to persist saved articles', error);
+    }
+  }, [readLater]);
 
   const readLaterCategories = useMemo(
     () => Array.from(new Set(readLater.map((article) => article.category))),
@@ -129,36 +159,52 @@ const NewsClient = ({
   }, []);
 
   const subscribeToPush = useCallback(
-    async (categories: Category[], nextFrequency: NotificationFrequency) => {
+    async (
+      categories: Category[],
+      nextFrequency: NotificationFrequency
+    ): Promise<NotificationPermission | 'unsupported'> => {
       if (
         typeof window === 'undefined' ||
         !('Notification' in window) ||
         !('serviceWorker' in navigator) ||
         !('PushManager' in window)
       ) {
-        return;
+        return 'unsupported';
       }
       if (!categories.length || nextFrequency === 'none') {
-        return;
+        return Notification.permission ?? 'unsupported';
       }
       const permission = await ensureNotificationPermission();
       if (permission !== 'granted') {
-        return;
+        return permission;
       }
       if (!VAPID_PUBLIC_KEY) {
         console.warn('NEXT_PUBLIC_VAPID_KEY missing; unable to subscribe to push notifications.');
-        return;
+        return permission;
       }
       try {
-        const registration = await navigator.serviceWorker.register('/sw.js');
-        const existingSubscription = await registration.pushManager.getSubscription();
+        let registration = await navigator.serviceWorker.getRegistration();
+        if (!registration) {
+          registration = await navigator.serviceWorker.register('/sw.js');
+        }
+        let readyRegistration: ServiceWorkerRegistration | null = null;
+        try {
+          readyRegistration = await navigator.serviceWorker.ready;
+        } catch {
+          readyRegistration = null;
+        }
+        const swRegistration = readyRegistration ?? registration;
+        if (!swRegistration?.pushManager) {
+          return;
+        }
+        const existingSubscription = await swRegistration.pushManager.getSubscription();
         const keyArray = convertVapidKey(VAPID_PUBLIC_KEY);
         if (!keyArray) {
           return;
         }
         const subscription =
           existingSubscription ??
-          (await registration.pushManager.subscribe({
+          (await swRegistration.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: keyArray
           }));
@@ -176,8 +222,10 @@ const NewsClient = ({
             platform
           })
         });
+        return 'granted';
       } catch (error) {
         console.error('Unable to register push notifications', error);
+        return 'denied';
       }
     },
     [ensureNotificationPermission]
@@ -204,46 +252,61 @@ const NewsClient = ({
     (nextCategories: Category[], nextFrequency: NotificationFrequency) => {
       const url = buildNewsUrl(nextCategories, nextFrequency);
       router.push(url, { scroll: false });
+      router.refresh();
     },
     [buildNewsUrl, router]
-  );
-
-  const syncCategories = useCallback(
-    (nextCategories: Category[]) => {
-      applyPreferences(nextCategories, frequencyDraft);
-      if (frequencyDraft !== 'none') {
-        void subscribeToPush(nextCategories, frequencyDraft);
-      }
-      setActiveTab('news');
-    },
-    [applyPreferences, frequencyDraft, subscribeToPush]
   );
 
   const toggleCategory = useCallback(
     (category: Category) => {
       setCategoryDraft((prev) => {
-        const next = prev.includes(category)
-          ? prev.filter((item) => item !== category)
-          : [...prev, category];
-        syncCategories(next);
-        return next;
+        if (prev.includes(category)) {
+          return prev.filter((item) => item !== category);
+        }
+        return [...prev, category];
       });
     },
-    [syncCategories]
+    []
+  );
+
+  const handleSaveCategories = useCallback(async () => {
+    applyPreferences(categoryDraft, frequencyDraft);
+    if (frequencyDraft !== 'none' && categoryDraft.length) {
+      await subscribeToPush(categoryDraft, frequencyDraft);
+    }
+    setActiveTab('news');
+  }, [applyPreferences, categoryDraft, frequencyDraft, subscribeToPush]);
+
+  const handleFrequencyChange = useCallback(
+    (value: NotificationFrequency) => {
+      setFrequencyDraft(value);
+      applyPreferences(categoryDraft, value);
+      if (value !== 'none') {
+        const categoriesForSubscription = categoryDraft.length
+          ? categoryDraft
+          : selectedCategories;
+        if (categoriesForSubscription.length) {
+          void subscribeToPush(categoriesForSubscription, value);
+        }
+      }
+    },
+    [applyPreferences, categoryDraft, selectedCategories, subscribeToPush]
   );
 
   const handleApplyNotifications = useCallback(async () => {
     applyPreferences(categoryDraft, frequencyDraft);
+    let permission: NotificationPermission | 'unsupported' = 'unsupported';
     if (frequencyDraft !== 'none') {
-      await ensureNotificationPermission();
       const categoriesForSubscription = categoryDraft.length
         ? categoryDraft
         : selectedCategories;
       if (categoriesForSubscription.length) {
-        void subscribeToPush(categoriesForSubscription, frequencyDraft);
+        permission = await subscribeToPush(categoriesForSubscription, frequencyDraft);
       }
+    } else {
+      permission = await ensureNotificationPermission();
     }
-    setActiveTab('interests');
+    setActiveTab(permission === 'granted' ? 'interests' : 'notifications');
   }, [
     applyPreferences,
     categoryDraft,
@@ -282,6 +345,16 @@ const NewsClient = ({
       ) : (
         <p className="news-placeholder">{copy.home.interestsEmpty}</p>
       )}
+      <div className="tab-actions">
+        <button
+          type="button"
+          className="cta"
+          onClick={handleSaveCategories}
+          disabled={!categoryDraft.length}
+        >
+          {tabLabels.applyCategories}
+        </button>
+      </div>
     </div>
   );
 
@@ -315,7 +388,7 @@ const NewsClient = ({
                 name="frequency"
                 value={value}
                 checked={frequencyDraft === value}
-                onChange={() => setFrequencyDraft(value)}
+                onChange={() => handleFrequencyChange(value)}
               />
               {frequencyLabels[value]}
             </label>

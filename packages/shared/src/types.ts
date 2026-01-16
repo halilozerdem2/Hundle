@@ -1,4 +1,6 @@
 export type Category =
+  | 'ai'
+  | 'game-development'
   | 'technology'
   | 'business'
   | 'sports'
@@ -16,20 +18,7 @@ export type Category =
   | 'automotive'
   | 'fashion'
   | 'food'
-  | 'real-estate'
-  | 'world'
-  | 'local'
-  | 'culture'
-  | 'security'
-  | 'defense'
-  | 'weather'
-  | 'celebrity'
-  | 'movies'
-  | 'music'
-  | 'art'
-  | 'literature'
-  | 'space'
-  | 'history';
+  | 'real-estate';
 
 export type NotificationFrequency = '1m' | '1h' | '3h' | '6h' | '12h' | '24h' | 'none';
 
@@ -43,6 +32,7 @@ export interface NewsArticle {
   source: string;
   category: Category;
   publishedAt: string;
+  isFresh: boolean;
 }
 
 export interface PushSubscriptionJSON {

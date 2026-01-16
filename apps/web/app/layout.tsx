@@ -7,21 +7,21 @@ import Providers from '../components/Providers';
 import { LANGUAGE_COOKIE, resolveLanguage } from '../lib/i18n';
 
 export const metadata: Metadata = {
-  title: 'News Pulse',
+  title: 'Hundle',
   description: 'Curated push notifications that honor Android and iOS PWA constraints.',
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/logo.png', sizes: '512x512', type: 'image/png' }
     ],
     apple: [
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }
+      { url: '/logo.png', sizes: '192x192', type: 'image/png' }
     ]
   },
   appleWebApp: {
     capable: true,
-    title: 'News Pulse',
+    title: 'Hundle',
     statusBarStyle: 'default'
   }
 };

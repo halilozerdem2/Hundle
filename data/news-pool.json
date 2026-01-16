@@ -1,0 +1,642 @@
+{
+  "ai": [
+    {
+      "id": "https://www.manilatimes.net/2026/01/16/world/wikipedia-inks-ai-deals-with-microsoft-meta-and-perplexity-as-it-marks-25th-birthday/2260138",
+      "title": "Wikipedia inks AI deals with Microsoft, Meta and Perplexity as it marks 25th birthday",
+      "description": "LONDON — Wikipedia unveiled new business deals with a slew of artificial intelligence companies on Thursday as it marked its 25th anniversary.",
+      "url": "https://www.manilatimes.net/2026/01/16/world/wikipedia-inks-ai-deals-with-microsoft-meta-and-perplexity-as-it-marks-25th-birthday/2260138",
+      "source": "The Manila Times",
+      "category": "ai",
+      "publishedAt": "2026-01-16T04:30:00Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.devdiscourse.com/article/headlines/3771497-taiwan-and-us-forge-strategic-ai-partnership-amidst-trade-talks",
+      "title": "Taiwan and U.S. Forge Strategic AI Partnership Amidst Trade Talks",
+      "description": "Taiwan aims to enhance its strategic partnership with the U.S. in artificial intelligence after agreeing to cut tariffs and boost investment in the country. Vice Premier Cheng Li-chiun announced a trade deal to foster mutual high-tech investment, despite potential tensions with China, amplifying Taiwan’s semiconductor role.",
+      "url": "https://www.devdiscourse.com/article/headlines/3771497-taiwan-and-us-forge-strategic-ai-partnership-amidst-trade-talks",
+      "source": "Devdiscourse",
+      "category": "ai",
+      "publishedAt": "2026-01-16T04:18:53Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.zdnet.com/article/raspberry-pi-5-generative-ai-add-on/",
+      "title": "Your Raspberry Pi 5 just got a major functionality upgrade - and it looks very promising",
+      "description": "The new $130 AI HAT+ 2 unlocks generative AI for the Raspberry Pi 5.",
+      "url": "https://www.zdnet.com/article/raspberry-pi-5-generative-ai-add-on/",
+      "source": "ZDNet",
+      "category": "ai",
+      "publishedAt": "2026-01-16T04:07:00Z",
+      "isFresh": false
+    }
+  ],
+  "game-development": [
+    {
+      "id": "https://www.zdnet.com/article/ai-failed-test-on-remote-freelance-jobs/",
+      "title": "Worried AI will take your remote job? You're safe for now, this study shows",
+      "description": "Researchers tested AI on remote freelance projects across fields like game development, data analysis, and video animation. It didn't go well.",
+      "url": "https://www.zdnet.com/article/ai-failed-test-on-remote-freelance-jobs/",
+      "source": "ZDNet",
+      "category": "game-development",
+      "publishedAt": "2026-01-15T09:13:00Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://screenrant.com/eidos-montreal-aaaa-game-skull-and-bones/",
+      "title": "Brace Yourselves For The Next AAAA Game",
+      "description": "As game development continues to balloon, the games themselves only grow more ambitious, and it seems we're on the cusp of a new frontier.",
+      "url": "https://screenrant.com/eidos-montreal-aaaa-game-skull-and-bones/",
+      "source": "Screen Rant",
+      "category": "game-development",
+      "publishedAt": "2026-01-14T18:00:19Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.gamesradar.com/games/baldur-s-gate/baldurs-gate-3-and-divinity-lead-writer-says-ai-generated-writing-is-a-3-10-at-best-and-doesnt-actually-improve-game-development/",
+      "title": "Baldur's Gate 3 and Divinity lead writer says AI-generated writing is a \"3/10 at best\" and \"doesn't\" actually improve game development",
+      "description": "Larian Studios has toyed with AI tools",
+      "url": "https://www.gamesradar.com/games/baldur-s-gate/baldurs-gate-3-and-divinity-lead-writer-says-ai-generated-writing-is-a-3-10-at-best-and-doesnt-actually-improve-game-development/",
+      "source": "GamesRadar+",
+      "category": "game-development",
+      "publishedAt": "2026-01-12T14:44:15Z",
+      "isFresh": false
+    }
+  ],
+  "technology": [
+    {
+      "id": "https://www.timesnownews.com/india/why-indias-helicopters-need-eyes-inside-the-indo-german-oas-deal-article-153456044",
+      "title": "Why India’s Helicopters Need Eyes: Inside the Indo-German OAS Deal",
+      "description": "The recent India-Germany collaboration emphasizes the development of an Obstacle Avoidance System (OAS) for helicopters, highlighting a commitment to safety and indigenous technology. This system addresses critical challenges faced by helicopters, such as low visibility and hazardous terrain, which can lead to Controlled Flight Into Terrain (CFIT) incidents. The agreement between Hindustan Aeronautics Limited and HENSOLDT includes technology transfer, allowing India to manufacture and potentially export the OAS. This cooperation signifies a strategic partnership that enhances operational capabilities and promotes high-tech manufacturing in India., India News, Times Now",
+      "url": "https://www.timesnownews.com/india/why-indias-helicopters-need-eyes-inside-the-indo-german-oas-deal-article-153456044",
+      "source": "Times Now",
+      "category": "technology",
+      "publishedAt": "2026-01-16T04:34:12Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.manilatimes.net/2026/01/16/tmt-newswire/pr-newswire/cios-face-an-accelerating-gap-as-adaptive-it-leadership-in-the-spotlight-at-info-tech-live-2026-in-brisbane/2260129",
+      "title": "CIOs Face an Accelerating Gap as Adaptive IT Leadership in the Spotlight at Info-Tech LIVE 2026 in Brisbane",
+      "description": "As AI adoption accelerates and technology change cycles continue to compress, many CIOs are finding that traditional leadership models can no longer keep pace with the demands of a technology-first enterprise. At Info-Tech LIVE 2026 in Brisbane, Info-Tech Research Group will focus its Adaptive IT Leadership sessions on helping IT leaders evolve how they lead, develop talent, and make decisions in an exponential era.",
+      "url": "https://www.manilatimes.net/2026/01/16/tmt-newswire/pr-newswire/cios-face-an-accelerating-gap-as-adaptive-it-leadership-in-the-spotlight-at-info-tech-live-2026-in-brisbane/2260129",
+      "source": "The Manila Times",
+      "category": "technology",
+      "publishedAt": "2026-01-16T04:25:20Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://economictimes.indiatimes.com/markets/ipos/fpos/amagi-media-labs-ipo-day-3-gmp-signals-7-listing-gain-should-you-apply/articleshow/126557035.cms",
+      "title": "Amagi Media Labs IPO Day 3: GMP signals 7% listing gain; should you apply?",
+      "description": "The Rs 1,789 crore Amagi Media Labs IPO entered its final day with marginally improved sentiment as the grey market premium inched up to around 7%. Despite the uptick, overall subscription remained muted at 13% by Day 2, reflecting cautious investor appetite amid volatile markets and valuation concerns around new-age technology companies.",
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/amagi-media-labs-ipo-day-3-gmp-signals-7-listing-gain-should-you-apply/articleshow/126557035.cms",
+      "source": "The Economic Times",
+      "category": "technology",
+      "publishedAt": "2026-01-16T04:16:00Z",
+      "isFresh": false
+    }
+  ],
+  "business": [
+    {
+      "id": "https://www.lokmattimes.com/business/bmc-election-results-2026-indian-stock-market-opens-in-green-as-exit-poll-predicts-big-win-for-bjp-led-mahayuti-a475/",
+      "title": "BMC Election Results 2026: Indian Stock Market Opens In Green As Exit Poll Predicts Big Win for BJP",
+      "description": "BMC Election Results 2026: Indian Stock Market Opens In Green As Exit Poll Predicts Big Win for BJP-Led Mahayuti - The Indian stock market opened on a positive note following exit polls indicating a decisive victory for the BJP-led ... Get Latest News on Business only on lokmattimes.com",
+      "url": "https://www.lokmattimes.com/business/bmc-election-results-2026-indian-stock-market-opens-in-green-as-exit-poll-predicts-big-win-for-bjp-led-mahayuti-a475/",
+      "source": "Lokmat Times",
+      "category": "business",
+      "publishedAt": "2026-01-16T04:35:53Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.mid-day.com/news/world-news/photo/in-photos-venezuelan-nobel-peace-prize-winner-presents-her-medal-to-donald-trump-109192",
+      "title": "World News, Latest World News, Breaking News and Headlines Today",
+      "description": "Get the latest news from around the world, including breaking news, politics, business, entertainment, and more. Stay up-to-date on the latest happenings in the world with our live updates.",
+      "url": "https://www.mid-day.com/news/world-news/photo/in-photos-venezuelan-nobel-peace-prize-winner-presents-her-medal-to-donald-trump-109192",
+      "source": "Mid Day",
+      "category": "business",
+      "publishedAt": "2026-01-16T04:35:00Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://scanx.trade/stock-market-news/stocks/nomura-initiates-coverage-on-united-spirits-with-buy-rating-and-1-650-target-price/30083514",
+      "title": "Nomura Initiates Coverage on United Spirits with Buy Rating and ₹1,650 Target Price",
+      "description": "Nomura Securities has initiated research coverage on United Spirits with a Buy rating and target price of ₹1,650.00. This development represents increased institutional interest in the alcoholic beverages company and provides investors with additional analytical perspective.",
+      "url": "https://scanx.trade/stock-market-news/stocks/nomura-initiates-coverage-on-united-spirits-with-buy-rating-and-1-650-target-price/30083514",
+      "source": "scanx.trade",
+      "category": "business",
+      "publishedAt": "2026-01-16T04:32:00Z",
+      "isFresh": false
+    }
+  ],
+  "sports": [
+    {
+      "id": "https://cointelegraph.com/news/ncaa-asks-cftc-suspend-college-sport-prediction-markets",
+      "title": "NCAA Asks CFTC to Suspend College Prediction Markets",
+      "description": "The NCAA has asked the CFTC to suspend college sports prediction markets until measures are put in place to protect student-athletes and the integrity of competition.",
+      "url": "https://cointelegraph.com/news/ncaa-asks-cftc-suspend-college-sport-prediction-markets",
+      "source": "Cointelegraph",
+      "category": "sports",
+      "publishedAt": "2026-01-16T04:36:29Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.syracuse.com/highschoolsports/2026/01/whitesboro-boys-ice-hockey-narrowly-escapes-auburn-to-return-to-top-of-division-ii-standings.html",
+      "title": "Whitesboro boys ice hockey narrowly escapes Auburn to return to top of Division II standings",
+      "description": "Whitesboro currently sports a 6-1 record in divisional competition.",
+      "url": "https://www.syracuse.com/highschoolsports/2026/01/whitesboro-boys-ice-hockey-narrowly-escapes-auburn-to-return-to-top-of-division-ii-standings.html",
+      "source": "syracuse.com",
+      "category": "sports",
+      "publishedAt": "2026-01-16T04:26:16Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.canberratimes.com.au/story/9154430/big-price-hike-for-former-cut-price-hero/",
+      "title": "Big price hike for former cut-price hero",
+      "description": "Subaru has hiked the price of its affordable BRZ sports car.",
+      "url": "https://www.canberratimes.com.au/story/9154430/big-price-hike-for-former-cut-price-hero/",
+      "source": "The Canberra Times",
+      "category": "sports",
+      "publishedAt": "2026-01-16T04:14:26Z",
+      "isFresh": false
+    }
+  ],
+  "science": [
+    {
+      "id": "https://www.firstpost.com/entertainment/why-is-american-producer-kathleen-kennedy-steward-of-star-wars-stepping-down-from-lucasfilm-after-13-years-find-out-13969181.html",
+      "title": "Why is American producer Kathleen Kennedy, steward of 'Star Wars,' stepping down from Lucasfilm after 13 years? Find out",
+      "description": "Kennedy, Lucas’ handpicked successor, had presided over the ever-expanding science-fiction world of “Star Wars” since Disney acquired it in 2012",
+      "url": "https://www.firstpost.com/entertainment/why-is-american-producer-kathleen-kennedy-steward-of-star-wars-stepping-down-from-lucasfilm-after-13-years-find-out-13969181.html",
+      "source": "Firstpost",
+      "category": "science",
+      "publishedAt": "2026-01-16T03:52:06Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.thestar.com.my/starpicks/2026/01/16/shaping-the-next-generation-of-food-innovators",
+      "title": "Shaping the next generation of food innovators",
+      "description": "A simple food choice today reflects far more than personal taste. It is shaped by nutritional science, sustainability concerns, digital platforms, supply systems and evolving consumer behaviour.",
+      "url": "https://www.thestar.com.my/starpicks/2026/01/16/shaping-the-next-generation-of-food-innovators",
+      "source": "The Star",
+      "category": "science",
+      "publishedAt": "2026-01-16T02:34:00Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.nbcchicago.com/entertainment/entertainment-news/kathleen-kennedy-steward-of-star-wars-steps-down-from-lucasfilm/3877021/",
+      "title": "Kathleen Kennedy, steward of ‘Star Wars,' steps down from Lucasfilm",
+      "description": "Kennedy, Lucas’ handpicked successor, had presided over the ever-expanding science-fiction world of “Star Wars” since Disney acquired it in 2012.",
+      "url": "https://www.nbcchicago.com/entertainment/entertainment-news/kathleen-kennedy-steward-of-star-wars-steps-down-from-lucasfilm/3877021/",
+      "source": "NBC 5 Chicago",
+      "category": "science",
+      "publishedAt": "2026-01-16T02:30:39Z",
+      "isFresh": false
+    }
+  ],
+  "politics": [
+    {
+      "id": "https://www.thetimes.com/culture/art/article/ai-weiwei-chinese-artist-taiwan-lx7qghv77",
+      "title": "Ai Weiwei: ‘You in the West can’t compete with China’",
+      "description": "Dissident artist Ai Weiwei was forced into exile by China. So how come the 68-year-old defends the regime’s stance on Taiwan, censorship and global politics?",
+      "url": "https://www.thetimes.com/culture/art/article/ai-weiwei-chinese-artist-taiwan-lx7qghv77",
+      "source": "The Sunday Times",
+      "category": "politics",
+      "publishedAt": "2026-01-15T23:00:00Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.devdiscourse.com/article/politics/3771405-venezuelan-politics-a-tense-encounter-with-global-implications",
+      "title": "Venezuelan Politics: A Tense Encounter with Global Implications",
+      "description": "Maria Corina Machado met with U.S. President Donald Trump to discuss Venezuela's future. She presented her Nobel Peace Prize to him, recognizing his commitment to Venezuelan freedom.",
+      "url": "https://www.devdiscourse.com/article/politics/3771405-venezuelan-politics-a-tense-encounter-with-global-implications",
+      "source": "Devdiscourse",
+      "category": "politics",
+      "publishedAt": "2026-01-15T22:24:51Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://www.newsx.com/viral-news/from-fake-obama-arrest-to-lounging-with-netanyahu-how-trumps-love-for-ai-deepfakes-is-shaping-global-politics-148177/",
+      "title": "From Fake Obama Arrest To Lounging With Netanyahu, How Trump's Love For AI Deepfakes Is Shaping Global Politics",
+      "description": "Donald Trump is embracing AI-generated images as a core political tool, flooding social media with hyperreal visuals that glorify himself and mock critics",
+      "url": "https://www.newsx.com/viral-news/from-fake-obama-arrest-to-lounging-with-netanyahu-how-trumps-love-for-ai-deepfakes-is-shaping-global-politics-148177/",
+      "source": "NewsX",
+      "category": "politics",
+      "publishedAt": "2026-01-15T10:14:03Z",
+      "isFresh": false
+    }
+  ],
+  "health": [
+    {
+      "id": "https://www.hindustantimes.com/lifestyle/health/sidharth-malhotra-birthday-41-age-secret-high-protein-affordable-breakfast-hack-from-his-struggle-days-in-bollywood-101768532839056.html",
+      "title": "Sidharth Malhotra turns 41: Don't miss birthday boy's high-protein, affordable breakfast hack from his ‘struggle days’",
+      "description": "Happy birthday Sidharth Malhotra: As the actor turns 41, find out what he used to eat as a newcomer in Mumbai, which is both economical and nutritious. | Health",
+      "url": "https://www.hindustantimes.com/lifestyle/health/sidharth-malhotra-birthday-41-age-secret-high-protein-affordable-breakfast-hack-from-his-struggle-days-in-bollywood-101768532839056.html",
+      "source": "Hindustan Times",
+      "category": "health",
+      "publishedAt": "2026-01-16T04:33:00Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://zeenews.india.com/personal-finance/composite-salary-a/c-from-gym-spa-health-checkup-and-more-compare-benefit-on-atm-of-12-banks-for-central-govt-employees-3007122.html",
+      "title": "Composite Salary A/c: From Gym, Spa, Health Checkup And More, Compare Benefit On ATM Of 12 Banks For Central Govt Employees",
+      "description": "From Personal Accident Insurance (PAI) coverage to health, spa and more, other benefit on ATM 12 Public Sector Banks Explained for Group A, B, C employees",
+      "url": "https://zeenews.india.com/personal-finance/composite-salary-a/c-from-gym-spa-health-checkup-and-more-compare-benefit-on-atm-of-12-banks-for-central-govt-employees-3007122.html",
+      "source": "Zee News",
+      "category": "health",
+      "publishedAt": "2026-01-16T04:32:18Z",
+      "isFresh": false
+    },
+    {
+      "id": "https://timesofindia.indiatimes.com/health/thyroid-trouble-starts-before-labs-say-anythings-wrong-doctors-share-early-symptoms/articleshow/126557340.cms",
+      "title": "Thyroid trouble starts before labs say anything’s wrong: Doctors share early symptoms",
+      "description": "Life has changed fast, but our bodies haven’t caught up. We’re more stressed than ever, running on less sleep, eating food that looks convenient but bad.",
+      "url": "https://timesofindia.indiatimes.com/health/thyroid-trouble-starts-before-labs-say-anythings-wrong-doctors-share-early-symptoms/articleshow/126557340.cms",
+      "source": "Times of India",
+      "category": "health",
+      "publishedAt": "2026-01-16T04:31:00Z",
+      "isFresh": false
+    }
+  ],
+  "entertainment": [
+    {
+      "id": "https://www.hindustantimes.com/lifestyle/brunch/the-brunch-round-up-for-january-17-the-week-and-how-it-made-us-feel-101768507529067.html",
+      "title": "The Brunch round-up for January 17: The week and how it made us feel",
+      "description": "Heated Rivalry's fifth episode mirrors Breaking Bad's impact, showcasing love and challenging norms, while trends in fitness and entertainment evolve.",
+      "url": "https://www.hindustantimes.com/lifestyle/brunch/the-brunch-round-up-for-january-17-the-week-and-how-it-made-us-feel-101768507529067.html",
+      "source": "Hindustan Times",
+      "category": "entertainment",
+      "publishedAt": "2026-01-16T04:18:09Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.businesstoday.in/markets/stocks/story/delta-corp-q3-earnings-shares-fall-firm-cites-this-factor-for-weak-show-511116-2026-01-16",
+      "title": "Delta Corp Q3 earnings: Shares fall 4%, firm cites this factor for weak show",
+      "description": "Delta Corp shares fell 4% to Rs 69.56. Earlier, the stock opened flat at Rs 72.66. Market cap of the gaming and entertainment firm fell to Rs 1877 crore.",
+      "url": "https://www.businesstoday.in/markets/stocks/story/delta-corp-q3-earnings-shares-fall-firm-cites-this-factor-for-weak-show-511116-2026-01-16",
+      "source": "Business Today",
+      "category": "entertainment",
+      "publishedAt": "2026-01-16T03:58:44Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.mid-day.com/news/world-news/photo/in-photos-taiwan-detects-34-pla-aircraft-11-plan-ships-around-its-territory-109191",
+      "title": "World News, Latest World News, Breaking News and Headlines Today",
+      "description": "Get the latest news from around the world, including breaking news, politics, business, entertainment, and more. Stay up-to-date on the latest happenings in the world with our live updates.",
+      "url": "https://www.mid-day.com/news/world-news/photo/in-photos-taiwan-detects-34-pla-aircraft-11-plan-ships-around-its-territory-109191",
+      "source": "Mid Day",
+      "category": "entertainment",
+      "publishedAt": "2026-01-16T03:56:00Z",
+      "isFresh": true
+    }
+  ],
+  "travel": [
+    {
+      "id": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/hotel-industry-sees-more-room-for-deals-investments-this-year/articleshow/126551939.cms",
+      "title": "Hotel industry sees more room for deals, investments this year",
+      "description": "Indian hotel deals reached $397 million in 2025, a rise from the previous year. This growth signals strong demand for travel and more investments for 2026.",
+      "url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/hotel-industry-sees-more-room-for-deals-investments-this-year/articleshow/126551939.cms",
+      "source": "The Economic Times",
+      "category": "travel",
+      "publishedAt": "2026-01-15T18:38:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://economictimes.indiatimes.com/markets/stocks/news/trip-com-shares-crash-22-in-hong-kong-after-antitrust-probe/articleshow/126537487.cms",
+      "title": "Trip.com shares crash 22% in Hong Kong after antitrust probe",
+      "description": "Hong Kong-listed shares of a major Chinese online travel agency plummeted after regulators launched an antitrust probe over dominance concerns.",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/trip-com-shares-crash-22-in-hong-kong-after-antitrust-probe/articleshow/126537487.cms",
+      "source": "The Economic Times",
+      "category": "travel",
+      "publishedAt": "2026-01-15T03:24:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.manilatimes.net/2026/01/15/tmt-newswire/globenewswire/winnebago-industries-showcases-bold-new-rv-innovations-across-premium-brands-at-florida-rv-supershow/2259182",
+      "title": "Winnebago Industries Showcases Bold New RV Innovations Across Premium Brands at Florida RV SuperShow",
+      "description": "Winnebago Industries unveiled new models and cutting-edge features from its premium brands at the Florida RV SuperShow in Tampa.",
+      "url": "https://www.manilatimes.net/2026/01/15/tmt-newswire/globenewswire/winnebago-industries-showcases-bold-new-rv-innovations-across-premium-brands-at-florida-rv-supershow/2259182",
+      "source": "The Manila Times",
+      "category": "travel",
+      "publishedAt": "2026-01-14T18:46:38Z",
+      "isFresh": true
+    }
+  ],
+  "finance": [
+    {
+      "id": "https://economictimes.indiatimes.com/markets/stocks/news/chinas-1-2-trillion-windfall-quietly-seeps-into-global-markets/articleshow/126555689.cms",
+      "title": "China’s $1.2 trillion windfall quietly seeps into global markets",
+      "description": "China's record trade surplus is fueling massive private overseas investments, introducing risks of sudden reversals as the yuan strengthens.",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/chinas-1-2-trillion-windfall-quietly-seeps-into-global-markets/articleshow/126555689.cms",
+      "source": "The Economic Times",
+      "category": "finance",
+      "publishedAt": "2026-01-16T02:26:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-ril-wipro-jio-financial-infosys-angel-one-indian-hotels/articleshow/126555256.cms",
+      "title": "Stocks in news: RIL, Wipro, Jio Financial, Infosys, Angel One, Indian Hotels",
+      "description": "Markets traded volatile as companies like Reliance Industries, Wipro, and Infosys came into focus with new quarterly results and updates.",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-ril-wipro-jio-financial-infosys-angel-one-indian-hotels/articleshow/126555256.cms",
+      "source": "The Economic Times",
+      "category": "finance",
+      "publishedAt": "2026-01-16T01:12:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.thetimes.com/business/companies-markets/article/blackrock-beats-profit-forecasts-assets-hit-record-14trn-krjnwlgbq",
+      "title": "BlackRock beats profit forecasts as assets hit record $14trn",
+      "description": "The world’s biggest investment manager earned $2.2bn in Q4 as American financial markets rallied.",
+      "url": "https://www.thetimes.com/business/companies-markets/article/blackrock-beats-profit-forecasts-assets-hit-record-14trn-krjnwlgbq",
+      "source": "The Sunday Times",
+      "category": "finance",
+      "publishedAt": "2026-01-15T21:35:00Z",
+      "isFresh": true
+    }
+  ],
+  "gaming": [
+    {
+      "id": "https://www.tomsguide.com/ai/one-major-aaa-release-will-be-built-with-ai-generated-assets-as-a-core-selling-point-and-succeed-chatgpts-bold-2026-gaming-predictions",
+      "title": "ChatGPT's bold 2026 video game industry predictions",
+      "description": "ChatGPT forecasts the video game industry in 2026, highlighting AI-generated assets and new business models.",
+      "url": "https://www.tomsguide.com/ai/one-major-aaa-release-will-be-built-with-ai-generated-assets-as-a-core-selling-point-and-succeed-chatgpts-bold-2026-gaming-predictions",
+      "source": "Tom's Guide",
+      "category": "gaming",
+      "publishedAt": "2026-01-15T08:45:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.nytimes.com/2026/01/14/world/asia/blood-money-video-game-scams.html",
+      "title": "A New Video Game Traps Players in an Online Scam Center",
+      "description": "“Blood Money: Lethal Eden” taps into a rising anxiety in China by simulating trafficked workers forced into scam centers.",
+      "url": "https://www.nytimes.com/2026/01/14/world/asia/blood-money-video-game-scams.html",
+      "source": "The New York Times",
+      "category": "gaming",
+      "publishedAt": "2026-01-14T09:58:04Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.afr.com/world/middle-east/saudi-arabia-tightens-its-grip-on-the-300b-video-game-industry-20251222-p5nplh",
+      "title": "Saudi Arabia tightens its grip on the $300b video game industry",
+      "description": "Crown Prince Mohammed bin Salman has plunged into gaming, most recently with the acquisition of Electronic Arts.",
+      "url": "https://www.afr.com/world/middle-east/saudi-arabia-tightens-its-grip-on-the-300b-video-game-industry-20251222-p5nplh",
+      "source": "Australian Financial Review",
+      "category": "gaming",
+      "publishedAt": "2026-01-12T18:00:00Z",
+      "isFresh": true
+    }
+  ],
+  "education": [
+    {
+      "id": "https://www.tribuneindia.com/news/business/national-startup-day-2026-visionary-founders-and-startups-transforming-india/",
+      "title": "National Startup Day 2026: Visionary Founders and Startups Transforming India",
+      "description": "India celebrates National Startup Day by highlighting founders building the backbone of the country's next phase of growth.",
+      "url": "https://www.tribuneindia.com/news/business/national-startup-day-2026-visionary-founders-and-startups-transforming-india/",
+      "source": "The Tribune",
+      "category": "education",
+      "publishedAt": "2026-01-15T11:40:28Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.tribuneindia.com/news/business/national-startup-day-2026-startups-founders-shaping-indias-growth-story/",
+      "title": "National Startup Day 2026: Startups & Founders Shaping India's Growth Story",
+      "description": "Founders across sectors are building businesses that address structural gaps and strengthen productivity.",
+      "url": "https://www.tribuneindia.com/news/business/national-startup-day-2026-startups-founders-shaping-indias-growth-story/",
+      "source": "The Tribune",
+      "category": "education",
+      "publishedAt": "2026-01-15T11:35:31Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.devdiscourse.com/article/education/3770632-iimas-bpgp-transforming-careers-through-flexible-management-education",
+      "title": "IIMA's BPGP: Transforming Careers Through Flexible Management Education",
+      "description": "IIM Ahmedabad's Blended Post Graduate Programme offers a flexible MBA experience for working professionals.",
+      "url": "https://www.devdiscourse.com/article/education/3770632-iimas-bpgp-transforming-careers-through-flexible-management-education",
+      "source": "Devdiscourse",
+      "category": "education",
+      "publishedAt": "2026-01-15T11:15:41Z",
+      "isFresh": true
+    }
+  ],
+  "energy": [
+    {
+      "id": "https://economictimes.indiatimes.com/industry/energy/power/power-sector-can-fetch-450-billion-investment-by-2032/articleshow/126550878.cms",
+      "title": "Power sector can fetch $450 billion investment by 2032",
+      "description": "India's power sector is set for massive growth, with investments projected to reach $450 billion by 2032.",
+      "url": "https://economictimes.indiatimes.com/industry/energy/power/power-sector-can-fetch-450-billion-investment-by-2032/articleshow/126550878.cms",
+      "source": "The Economic Times",
+      "category": "energy",
+      "publishedAt": "2026-01-15T17:44:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.dhakatribune.com/business/401097/cpd-raises-questions-over-draft-energy-and-power",
+      "title": "CPD raises questions over draft Energy and Power Master Plan",
+      "description": "Bangladesh’s Centre for Policy Dialogue questioned whether the interim government rushed the draft energy plan, warning it could slow the energy transition.",
+      "url": "https://www.dhakatribune.com/business/401097/cpd-raises-questions-over-draft-energy-and-power",
+      "source": "Dhaka Tribune",
+      "category": "energy",
+      "publishedAt": "2026-01-15T15:42:42Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.euractiv.com/news/plundering-carbon-pricing-revenue-could-jeopardise-eus-energy-transition-ngos-warn/",
+      "title": "Plundering carbon pricing revenue could jeopardise EU's energy transition, NGOs warn",
+      "description": "Environmental groups warn ETS revenues are vital for national climate measures.",
+      "url": "https://www.euractiv.com/news/plundering-carbon-pricing-revenue-could-jeopardise-eus-energy-transition-ngos-warn/",
+      "source": "Euractiv",
+      "category": "energy",
+      "publishedAt": "2026-01-15T15:18:19Z",
+      "isFresh": true
+    }
+  ],
+  "environment": [
+    {
+      "id": "https://www.devdiscourse.com/article/science-environment/3770104-climate-change-as-an-economic-threat-how-burkina-faso-can-build-fiscal-and-climate-resilience",
+      "title": "Climate Change as an Economic Threat: How Burkina Faso Can Build Fiscal and Climate Resilience",
+      "description": "The IMF Climate Policy Diagnostic argues that energy, fuel, water, and disaster-risk reforms can strengthen Burkina Faso’s resilience.",
+      "url": "https://www.devdiscourse.com/article/science-environment/3770104-climate-change-as-an-economic-threat-how-burkina-faso-can-build-fiscal-and-climate-resilience",
+      "source": "Devdiscourse",
+      "category": "environment",
+      "publishedAt": "2026-01-16T03:52:15Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://cheknews.ca/blooming-experts-attribute-climate-change-to-victorias-january-blossoms-1299883/",
+      "title": "Experts attribute climate change to Victoria's January blossoms",
+      "description": "Victoria residents are seeing blooms in mid-January, which experts attribute to climate change.",
+      "url": "https://cheknews.ca/blooming-experts-attribute-climate-change-to-victorias-january-blossoms-1299883/",
+      "source": "CHEK News",
+      "category": "environment",
+      "publishedAt": "2026-01-16T02:18:14Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/c9qpx2qqeq7o",
+      "title": "New map reveals landscape beneath Antarctica in unprecedented detail",
+      "description": "Scientists believe the map could shed light on how Antarctica's vast ice sheet will respond to climate change.",
+      "url": "https://www.bbc.com/news/articles/c9qpx2qqeq7o",
+      "source": "BBC News",
+      "category": "environment",
+      "publishedAt": "2026-01-16T00:00:21Z",
+      "isFresh": true
+    }
+  ],
+  "startups": [
+    {
+      "id": "https://www.bloomberg.com/news/articles/2026-01-16/openai-microsoft-lose-last-chance-to-avoid-trial-with-musk",
+      "title": "OpenAI, Microsoft Lose Last Chance to Avoid Trial With Musk",
+      "description": "OpenAI and Microsoft failed to escape a trial over Elon Musk’s claims that the startup abandoned its original public-charity mission.",
+      "url": "https://www.bloomberg.com/news/articles/2026-01-16/openai-microsoft-lose-last-chance-to-avoid-trial-with-musk",
+      "source": "Bloomberg",
+      "category": "startups",
+      "publishedAt": "2026-01-16T01:04:51Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://fortune.com/2026/01/15/chubbies-cofounder-kyle-hency-new-startup-good-day-seed-funding/",
+      "title": "Chubbies cofounder Kyle Hency is back—his new startup Good Day just raised a seed round",
+      "description": "Good Day raised $7 million in seed funding from Ridge Ventures, FirstMark Capital, Flex Capital, and others.",
+      "url": "https://fortune.com/2026/01/15/chubbies-cofounder-kyle-hency-new-startup-good-day-seed-funding/",
+      "source": "Fortune",
+      "category": "startups",
+      "publishedAt": "2026-01-15T23:21:15Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://techstartups.com/2026/01/15/top-startup-and-tech-funding-news-january-15-2025/",
+      "title": "Top Startup and Tech Funding News - January 15, 2025",
+      "description": "A roundup of startup funding news highlighting AI-native video creation, defense-grade robotics, and brain-computer interfaces.",
+      "url": "https://techstartups.com/2026/01/15/top-startup-and-tech-funding-news-january-15-2025/",
+      "source": "TechStartups.com",
+      "category": "startups",
+      "publishedAt": "2026-01-15T00:00:00Z",
+      "isFresh": true
+    }
+  ],
+  "automotive": [
+    {
+      "id": "https://www.marketscreener.com/news/ford-motor-ceo-urges-updating-of-us-mexico-canada-trade-agreement-ce7e58ded980f525",
+      "title": "Ford Motor CEO Urges Updating of US-Mexico-Canada Trade Agreement",
+      "description": "Ford CEO Jim Farley said the USMCA is crucial to North America’s automotive industry and needs updating.",
+      "url": "https://www.marketscreener.com/news/ford-motor-ceo-urges-updating-of-us-mexico-canada-trade-agreement-ce7e58ded980f525",
+      "source": "MarketScreener",
+      "category": "automotive",
+      "publishedAt": "2026-01-15T18:01:58Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.devdiscourse.com/article/technology/3771285-trade-showdown-whitmer-warns-against-abandoning-usmca-amid-chinas-automotive-ascendancy",
+      "title": "Trade Showdown: Whitmer Warns Against Abandoning USMCA Amid China's Automotive Ascendancy",
+      "description": "Michigan Governor Gretchen Whitmer stressed extending the USMCA trade deal to protect U.S. auto production.",
+      "url": "https://www.devdiscourse.com/article/technology/3771285-trade-showdown-whitmer-warns-against-abandoning-usmca-amid-chinas-automotive-ascendancy",
+      "source": "Devdiscourse",
+      "category": "automotive",
+      "publishedAt": "2026-01-15T17:50:27Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://apnews.com/article/vehicle-car-shopping-tips-2026-07d562d5f0ed0ea038a0d020333ef2af",
+      "title": "Car shopping trends and tips for 2026 from Edmunds",
+      "description": "Edmunds editors highlight car shopping challenges and trends for 2026, including more used vehicles and better trade-in values.",
+      "url": "https://apnews.com/article/vehicle-car-shopping-tips-2026-07d562d5f0ed0ea038a0d020333ef2af",
+      "source": "The Associated Press",
+      "category": "automotive",
+      "publishedAt": "2026-01-14T12:11:21Z",
+      "isFresh": true
+    }
+  ],
+  "fashion": [
+    {
+      "id": "https://timesofindia.indiatimes.com/entertainment/hindi/bollywood/news/selena-gomez-and-priyanka-chopra-top-golden-globes-red-carpet-power-rankings/articleshow/126556265.cms",
+      "title": "Selena Gomez and Priyanka Chopra top Golden Globes red carpet power rankings",
+      "description": "Selena Gomez and Priyanka Chopra stole the 2026 Golden Globes red carpet, topping social media engagement charts.",
+      "url": "https://timesofindia.indiatimes.com/entertainment/hindi/bollywood/news/selena-gomez-and-priyanka-chopra-top-golden-globes-red-carpet-power-rankings/articleshow/126556265.cms",
+      "source": "Times of India",
+      "category": "fashion",
+      "publishedAt": "2026-01-16T04:15:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.timesnownews.com/lifestyle/fashion/the-biggest-menswear-trends-of-2026-article-153455388",
+      "title": "The Biggest Menswear Trends of 2026",
+      "description": "Menswear in 2026 trades excess for intention, with quarter-zips, sharper fits, and softer palettes taking the spotlight.",
+      "url": "https://www.timesnownews.com/lifestyle/fashion/the-biggest-menswear-trends-of-2026-article-153455388",
+      "source": "Times Now",
+      "category": "fashion",
+      "publishedAt": "2026-01-16T01:53:11Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.hindustantimes.com/lifestyle/fashion/amazon-great-republic-day-sale-get-up-to-60-off-on-lipstick-mascara-eyeliner-kajal-and-more-101768367055647.html",
+      "title": "Amazon Great Republic Day Sale: Get up to 60% off on lipstick, mascara, eyeliner, kajal, and more",
+      "description": "During the Amazon Great Republic Day Sale, shoppers can get up to 60% off on a wide range of makeup products.",
+      "url": "https://www.hindustantimes.com/lifestyle/fashion/amazon-great-republic-day-sale-get-up-to-60-off-on-lipstick-mascara-eyeliner-kajal-and-more-101768367055647.html",
+      "source": "Hindustan Times",
+      "category": "fashion",
+      "publishedAt": "2026-01-16T00:31:03Z",
+      "isFresh": true
+    }
+  ],
+  "food": [
+    {
+      "id": "https://www.manilatimes.net/2026/01/15/tmt-newswire/pr-newswire/aptean-receives-frost-sullivans-2026-global-technology-innovation-leadership-recognition-for-excellence-in-ai-powered-erp-for-food-and-beverage/2259822",
+      "title": "Aptean Receives Frost & Sullivan's 2026 Global Technology Innovation Leadership Recognition for Excellence in AI-powered ERP for Food and Beverage",
+      "description": "Aptean was recognized for redefining AI-powered ERP solutions that enhance efficiency and intelligence in the food and beverage industry.",
+      "url": "https://www.manilatimes.net/2026/01/15/tmt-newswire/pr-newswire/aptean-receives-frost-sullivans-2026-global-technology-innovation-leadership-recognition-for-excellence-in-ai-powered-erp-for-food-and-beverage/2259822",
+      "source": "The Manila Times",
+      "category": "food",
+      "publishedAt": "2026-01-15T15:01:13Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.prnewswire.co.uk/news-releases/aptean-receives-frost--sullivans-2026-global-technology-innovation-leadership-recognition-for-excellence-in-ai-powered-erp-for-food-and-beverage-302661694.html",
+      "title": "Aptean Receives Frost & Sullivan's 2026 Global Technology Innovation Leadership Recognition for Excellence in AI-powered ERP for Food and Beverage",
+      "description": "Frost & Sullivan recognized Aptean as a global technology innovation leader for AI-powered enterprise software.",
+      "url": "https://www.prnewswire.co.uk/news-releases/aptean-receives-frost--sullivans-2026-global-technology-innovation-leadership-recognition-for-excellence-in-ai-powered-erp-for-food-and-beverage-302661694.html",
+      "source": "PR Newswire UK",
+      "category": "food",
+      "publishedAt": "2026-01-15T14:30:00Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.globenewswire.com/news-release/2026/01/15/3219538/0/en/Freeze-Drying-Equipment-Market-to-Worth-Over-US-5-087-49-Million-by-2033-Astute-Analytica.html",
+      "title": "Freeze-Drying Equipment Market to Worth Over US$ 5,087.49 Million by 2033",
+      "description": "Drivers include pharmaceutical innovation, intelligent manufacturing, and expanding food and biotechnology applications.",
+      "url": "https://www.globenewswire.com/news-release/2026/01/15/3219538/0/en/Freeze-Drying-Equipment-Market-to-Worth-Over-US-5-087-49-Million-by-2033-Astute-Analytica.html",
+      "source": "GlobeNewswire",
+      "category": "food",
+      "publishedAt": "2026-01-15T13:17:30Z",
+      "isFresh": true
+    }
+  ],
+  "real-estate": [
+    {
+      "id": "https://www.timesnownews.com/business-economy/budget/affordable-housing-in-trouble-why-real-estate-wants-budget-2026-to-intervene-now-article-153455725",
+      "title": "Affordable Housing in Trouble? Why Real Estate Wants Budget 2026 to Intervene Now",
+      "description": "Real estate leaders warn affordable housing is under stress and seek tax breaks, rental housing pushes, and infrastructure support.",
+      "url": "https://www.timesnownews.com/business-economy/budget/affordable-housing-in-trouble-why-real-estate-wants-budget-2026-to-intervene-now-article-153455725",
+      "source": "Times Now",
+      "category": "real-estate",
+      "publishedAt": "2026-01-16T03:19:57Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.hindustantimes.com/astrology/horoscope/aquarius-daily-horoscope-today-for-january-16-2026-be-realistic-when-it-comes-to-deadlines-for-projects-101768477436544.html",
+      "title": "Aquarius Horoscope Today for January 16, 2026: Be realistic when it comes to deadlines for projects",
+      "description": "This is a good time to invest money, and you can seriously consider real estate or the stock market.",
+      "url": "https://www.hindustantimes.com/astrology/horoscope/aquarius-daily-horoscope-today-for-january-16-2026-be-realistic-when-it-comes-to-deadlines-for-projects-101768477436544.html",
+      "source": "Hindustan Times",
+      "category": "real-estate",
+      "publishedAt": "2026-01-15T22:40:19Z",
+      "isFresh": true
+    },
+    {
+      "id": "https://www.bnnbloomberg.ca/business/real-estate/2026/01/15/national-home-sales-fell-nearly-2-in-2025-after-trade-war-fuelled-uncertainty-crea/",
+      "title": "Home sales down in 2025",
+      "description": "The Canadian Real Estate Association expects national home sales to grow 5.1% in 2026 after last year’s tariff-induced slowdown.",
+      "url": "https://www.bnnbloomberg.ca/business/real-estate/2026/01/15/national-home-sales-fell-nearly-2-in-2025-after-trade-war-fuelled-uncertainty-crea/",
+      "source": "BNN Bloomberg",
+      "category": "real-estate",
+      "publishedAt": "2026-01-15T18:10:06Z",
+      "isFresh": true
+    }
+  ]
+}

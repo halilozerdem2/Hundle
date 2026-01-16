@@ -12,6 +12,8 @@ export const resolveLanguage = (value?: string | null): Language =>
   (isSupportedLanguage(value) ? value : DEFAULT_LANGUAGE) as Language;
 
 const turkishCategoryLabels: Record<Category, string> = {
+  ai: 'Yapay Zeka',
+  'game-development': 'Oyun Geliştirme',
   technology: 'Teknoloji',
   business: 'İş Dünyası',
   sports: 'Spor',
@@ -38,7 +40,6 @@ const turkishCategoryLabels: Record<Category, string> = {
   weather: 'Hava Durumu',
   celebrity: 'Ünlüler',
   movies: 'Filmler',
-  music: 'Müzik',
   art: 'Sanat',
   literature: 'Edebiyat',
   space: 'Uzay',
@@ -106,8 +107,8 @@ export const translations = {
       notificationsTab: 'Notification settings',
       readLaterTab: 'Read later',
       readLaterEmpty: 'Nothing saved for later yet. Mark a story to add it here.',
-      categoriesHelper: 'Select the topics you want to follow and apply to refresh your feed.',
-      applyCategories: 'Apply categories',
+      categoriesHelper: 'Select the topics you want to follow and apply to update your feed.',
+      applyCategories: 'Save interests',
       notificationsHelper: 'Pick how often you would like to receive notifications or turn them off.',
       applyNotifications: 'Save notification settings'
     },
@@ -120,7 +121,6 @@ export const translations = {
         'No fresh stories for those topics right now. Try broadening your picks or check back soon.',
       loadingFrom: (label: string) => `Gathering the latest from ${label}…`,
       refreshing: 'Refreshing the feed…',
-      readMore: 'Read more →',
       addToReadLater: 'Read later',
       removeFromReadLater: 'Remove',
       selectedLabelFallback: 'all topics'
@@ -167,8 +167,8 @@ export const translations = {
       notificationsTab: 'Bildirim ayarları',
       readLaterTab: 'Daha sonra oku',
       readLaterEmpty: 'Henüz kaydedilmiş haber yok. Bir haberi işaretleyerek buraya ekleyebilirsin.',
-      categoriesHelper: 'Takip etmek istediğin konuları seç ve akışını güncelle.',
-      applyCategories: 'Kategorileri uygula',
+      categoriesHelper: 'Takip etmek istediğin konuları seç ve kaydedince akışın güncellensin.',
+      applyCategories: 'Kaydet',
       notificationsHelper: 'Bildirim almak istediğin sıklığı seç veya tamamen kapat.',
       applyNotifications: 'Bildirim ayarlarını kaydet'
     },
@@ -180,7 +180,6 @@ export const translations = {
       empty: 'Bu konular için yeni haber yok. Seçim alanını genişletebilir veya sonra tekrar bakabilirsin.',
       loadingFrom: (label: string) => `${label} içinden en yenileri topluyoruz…`,
       refreshing: 'Akış yenileniyor…',
-      readMore: 'Devamını oku →',
       addToReadLater: 'Daha sonra oku',
       removeFromReadLater: 'Kaldır',
       selectedLabelFallback: 'tüm konular'

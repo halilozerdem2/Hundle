@@ -3,6 +3,7 @@ import { FREQUENCY_CRON, NotificationFrequency, StoredSubscription } from '@news
 import { readSubscriptions } from '@news/shared/server';
 import { fetchNews } from '@news/news-core';
 import { sendPush } from '@news/push-core';
+import { runFullNewsSync } from './fullSyncNewsPool';
 
 const frequencyLabels: Record<NotificationFrequency, string> = {
   '30m': '30 minute',
@@ -43,10 +44,40 @@ const dispatchForFrequency = async (frequency: NotificationFrequency) => {
   }
 };
 
+const NEWS_POOL_SYNC_CRON = process.env.NEWS_POOL_SYNC_CRON ?? '0 3 * * *';
+const NEWS_POOL_SYNC_ON_STARTUP = process.env.NEWS_POOL_SYNC_ON_STARTUP === 'true';
+
+const scheduleNewsPoolSync = () => {
+  let inProgress = false;
+
+  const trigger = async (source: string) => {
+    if (inProgress) {
+      console.info(`[worker] News pool sync already running. Ignoring ${source} trigger.`);
+      return;
+    }
+    inProgress = true;
+    console.info(`[worker] News pool sync started (${source}).`);
+    try {
+      await runFullNewsSync();
+      console.info('[worker] News pool sync completed.');
+    } catch (error) {
+      console.error('[worker] News pool sync failed', error);
+    } finally {
+      inProgress = false;
+    }
+  };
+
+  cron.schedule(NEWS_POOL_SYNC_CRON, () => trigger('scheduled'));
+  if (NEWS_POOL_SYNC_ON_STARTUP) {
+    void trigger('startup');
+  }
+};
+
 export const startWorker = () => {
   Object.entries(FREQUENCY_CRON).forEach(([frequency, cronExpression]) => {
     cron.schedule(cronExpression, () => dispatchForFrequency(frequency as NotificationFrequency));
   });
+  scheduleNewsPoolSync();
   console.info('[worker] scheduler ready.');
 };
 

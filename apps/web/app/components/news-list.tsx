@@ -62,12 +62,33 @@ const NewsList = ({
       <div className="news-list" role="list">
         {articles.map((article, index) => {
           const isSaved = bookmarkConfig?.ids.includes(article.id) ?? false;
+          const handleNavigate = (
+            event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+          ) => {
+            const target = event.target;
+            if (target instanceof Element && target.closest('button')) {
+              return;
+            }
+            if (event.type === 'keydown') {
+              const keyboardEvent = event as React.KeyboardEvent<HTMLElement>;
+              if (keyboardEvent.key !== 'Enter' && keyboardEvent.key !== ' ') {
+                return;
+              }
+              keyboardEvent.preventDefault();
+            }
+            if (typeof window !== 'undefined') {
+              window.open(article.url, '_blank', 'noopener,noreferrer');
+            }
+          };
           return (
             <article
               key={article.id}
               className="news-item"
               style={{ animationDelay: `${index * 60}ms` }}
               role="listitem"
+              tabIndex={0}
+              onClick={handleNavigate}
+              onKeyDown={handleNavigate}
             >
               <div className="news-item-header">
                 <span className="news-source">{article.source}</span>
@@ -79,14 +100,6 @@ const NewsList = ({
               <p className="news-description">{article.description}</p>
               <div className="news-meta">
                 <span>{formatTimestamp(article.publishedAt)}</span>
-                <a
-                  className="news-link"
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {copy.newsList.readMore}
-                </a>
               </div>
               {bookmarkConfig && (
                 <button
@@ -94,7 +107,10 @@ const NewsList = ({
                   className={
                     isSaved ? 'bookmark-button bookmark-button--active' : 'bookmark-button'
                   }
-                  onClick={() => bookmarkConfig.onToggle(article)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    bookmarkConfig.onToggle(article);
+                  }}
                 >
                   {isSaved ? copy.newsList.removeFromReadLater : copy.newsList.addToReadLater}
                 </button>
