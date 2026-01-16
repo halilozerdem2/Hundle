@@ -1,18 +1,18 @@
 # News Pulse Monorepo
 
-A Turborepo-powered MVP for a news notification system. Users pick interests, fetch curated headlines, and (if their device allows it) subscribe to Web Push notifications delivered by a cron-powered worker. The implementation intentionally mirrors platform restrictions: Android browsers can subscribe directly while iOS users must install the Safari PWA first.
+A Turborepo-powered MVP for a news notification system. Users pick interests, fetch curated headlines, and (if their device allows it) subscribe to Web Push notifications. News data and subscriptions now live in Supabase so that any external worker/cron (deployed outside this repo) can refresh the pool and dispatch push notifications while the Next.js client keeps the PWA/service-worker experience aligned with platform restrictions.
 
 ## Repository structure
 ```
 .
 ├── apps/
-│   ├── web/        # Next.js 14 App Router UI + API routes + PWA/service worker
-│   └── worker/     # Node.js cron worker that sends push notifications
+│   └── web/        # Next.js 14 App Router UI + API routes + PWA/service worker
 ├── packages/
-│   ├── shared/     # Types, constants, storage helpers shared across apps
-│   ├── news-core/  # Mocked news fetching & normalization logic
-│   └── push-core/  # Web Push helpers, VAPID configuration
-├── data/           # JSON persistence for subscriptions (MVP storage)
+│   ├── shared/     # Types, constants, Supabase helpers shared across apps
+│   ├── news-core/  # News fetching & normalization logic (used by the UI and external jobs)
+│   └── push-core/  # Web Push helpers, VAPID configuration for external jobs
+├── news_pool.csv   # Optional Supabase seed for `news_pool`
+├── subscriptions.csv # Optional Supabase seed for `subscriptions`
 ├── turbo.json
 ├── pnpm-workspace.yaml
 └── package.json
@@ -30,26 +30,25 @@ A Turborepo-powered MVP for a news notification system. Users pick interests, fe
    ```bash
    pnpm install
    ```
-2. Copy `.env.example` to `.env` and provide VAPID keys (`web-push` compatible) plus an optional path for the JSON subscription store.
-3. Run everything via Turborepo:
+2. Copy `.env.example` to `.env` and provide VAPID keys (`web-push` compatible), your Supabase URL, and API keys (anon + service role).
+3. Run the Next.js dev server via Turborepo:
    ```bash
    pnpm dev
    ```
    - `apps/web`: served at `http://localhost:3000`, includes the manifest (`public/manifest.json`) and `sw.js` service worker.
-   - `apps/worker`: Node.js cron process that logs to the terminal while dispatching push payloads.
+   - A separate worker/cron should live in its own deployment and consume `@news/news-core` + `@news/push-core` alongside the Supabase tables.
 
 ### Targeted scripts
 - `pnpm --filter web dev` – run only the Next.js app
-- `pnpm --filter worker dev` – run the worker in watch mode via `tsx`
 - `pnpm build` – build every package/app
 
 ## Push & scheduling flow
-1. The frontend calls `POST /api/news` to fetch mocked articles from `@news/news-core`.
-2. If the platform allows Web Push, the UI requests permission, registers `/sw.js`, and posts to `POST /api/subscribe` with the push subscription, categories, frequency, and platform (`android` or `ios-pwa`).
-3. `@news/shared` stores subscriptions inside `data/subscriptions.json` (overridable via `SUBSCRIPTIONS_FILE`).
-4. The worker runs cron jobs per frequency (`30m`, `1h`, `3h`, `1d`), fetches fresh headlines, and leverages `@news/push-core` to send payloads via the Web Push API.
+1. The frontend calls `POST /api/news` to fetch articles from Supabase (`news_pool` table) via `@news/news-core`.
+2. If the platform allows Web Push, the UI requests permission, registers `/sw.js`, and posts to `POST /api/subscribe` with the push subscription, categories, frequency, and platform (`android`, `ios-pwa`, or `desktop`).
+3. `@news/shared` stores subscriptions (and their categories/frequency) inside Supabase (`subscriptions` table). Both tables can be seeded using the CSV files in the repo root.
+4. An **external worker/cron job** (not part of this repo) should run on your preferred platform, use `@news/news-core` to refresh Supabase, and `@news/push-core` to deliver pushes according to `subscriptions.frequency` (e.g. Vercel Scheduled Functions, GitHub Actions, Fly.io, etc.).
 
-This baseline is optimized for local development but mirrors the production topology: a Next.js frontend/API, a Node.js worker, and shared packages ready for deployment with minimal changes.
+This repository now focuses on the Next.js frontend/API plus shared packages. Bring your own worker deployment to keep Supabase synchronized and to deliver push notifications.
 
 ## Environment variables
 Create a `.env` file from `.env.example` and populate the following:
@@ -57,13 +56,19 @@ Create a `.env` file from `.env.example` and populate the following:
 | Name | Scope | Description |
 | --- | --- | --- |
 | `NEXT_PUBLIC_VAPID_KEY` | client | Public VAPID key used by the browser to subscribe (must match the server’s public key). |
-| `PUSH_PUBLIC_KEY` | server | Public key for the Web Push API (same as above but referenced on the backend). |
+| `SUPABASE_URL` | server | Supabase project URL. |
+| `SUPABASE_SERVICE_ROLE_KEY` | server | Service role key used on the backend (keep secret). |
+| `SUPABASE_ANON_KEY` | server | Optional anon key for backend fallbacks (also set the `NEXT_PUBLIC_…` variants below). |
+| `NEXT_PUBLIC_SUPABASE_URL` | client | Supabase URL exposed to the browser. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | client | Anon key exposed to the browser (read-only operations). |
+| `PUSH_PUBLIC_KEY` | server | Public key for the Web Push API (same as below but referenced on the backend). |
 | `PUSH_PRIVATE_KEY` | server | Private VAPID key used by `web-push`. |
 | `PUSH_SUBJECT` | server | Contact string for VAPID (e.g. `mailto:admin@example.com`). |
-| `SUBSCRIPTIONS_FILE` | server | JSON storage path for subscriptions (default `./data/subscriptions.json`). |
+| `NEXT_PUBLIC_VAPID_KEY` | client | VAPID public key exposed to the browser when requesting notifications. |
+| `GNEWS_API_KEY` | server | API key for gnews.io used by your external worker to sync the news pool. |
 
 ## Deploying to Vercel
-Only the Next.js app (`apps/web`) is deployed; the worker remains a local/background process.
+Only the Next.js app (`apps/web`) is deployed through Vercel; your worker/cron should live elsewhere (or as a separate Scheduled Function) and point to the same Supabase instance.
 
 1. Push this repository to GitHub/GitLab and import it in Vercel.
 2. When prompted for settings set:
@@ -72,7 +77,7 @@ Only the Next.js app (`apps/web`) is deployed; the worker remains a local/backgr
    - **Build command:** `pnpm turbo run build --filter=web...` (pre-filled from `vercel.json`).
    - **Install command:** `pnpm install`
    - **Output directory:** `apps/web/.next`
-3. Configure the environment variables listed above inside Vercel (at minimum `NEXT_PUBLIC_VAPID_KEY`, `PUSH_PUBLIC_KEY`, `PUSH_PRIVATE_KEY`, `PUSH_SUBJECT`).
+3. Configure the environment variables listed above inside Vercel (Supabase credentials, VAPID keys, etc.).
 4. Deploy. Vercel will produce an HTTPS subdomain suitable for iOS Safari PWA testing (Add to Home Screen to enable push).
 
-> **Note:** The `apps/worker` cron service is not deployed on Vercel. Run it separately (e.g. `pnpm --filter worker dev`) on your own infrastructure if you need scheduled push notifications in production.
+> **Note:** To keep `news_pool` fresh and send pushes in production, deploy the worker logic (news sync + push dispatch) as a separate service or scheduled job that imports `@news/news-core` and `@news/push-core` and points to the same Supabase project.

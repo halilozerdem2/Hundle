@@ -11,5 +11,8 @@
   "dependencies": {
     "@news/shared": "workspace:*",
     "web-push": "^3.5.2"
+  },
+  "devDependencies": {
+    "@types/web-push": "3.6.4"
   }
 }

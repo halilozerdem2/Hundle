@@ -1,7 +1,5 @@
-import fs from 'fs/promises';
-import fsSync from 'fs';
-import path from 'path';
 import { AVAILABLE_CATEGORIES, Category, NewsArticle } from '@news/shared';
+import { supabase } from '@news/shared/supabaseClient';
 
 const stamp = (minutesAgo: number) =>
   new Date(Date.now() - minutesAgo * 60 * 1000).toISOString();
@@ -46,67 +44,9 @@ const defaultPool: Record<Category, NewsArticle[]> = AVAILABLE_CATEGORIES.reduce
   {} as Record<Category, NewsArticle[]>
 );
 
-const WORKSPACE_MARKERS = ['pnpm-workspace.yaml', 'turbo.json'];
-
-const resolveRepoRoot = () => {
-  const candidates = [process.env.INIT_CWD, process.cwd(), __dirname].filter(Boolean) as string[];
-  for (const start of candidates) {
-    let current = path.resolve(start);
-    while (true) {
-      if (WORKSPACE_MARKERS.some((marker) => fsSync.existsSync(path.join(current, marker)))) {
-        return current;
-      }
-      const parent = path.dirname(current);
-      if (parent === current) {
-        break;
-      }
-      current = parent;
-    }
-  }
-  return path.resolve(__dirname, '../../..');
-};
-
-const REPO_ROOT = resolveRepoRoot();
-const DEFAULT_POOL_PATH = path.join(REPO_ROOT, 'data', 'news-pool.json');
-
-const resolvePoolPath = (override?: string) => {
-  if (!override) {
-    return DEFAULT_POOL_PATH;
-  }
-  return path.isAbsolute(override) ? override : path.resolve(REPO_ROOT, override);
-};
-
-const getPoolPath = () => resolvePoolPath(process.env.NEWS_POOL_FILE);
-
-const ensurePoolFile = async (filePath: string) => {
-  try {
-    await fs.access(filePath);
-  } catch {
-    await fs.mkdir(path.dirname(filePath), { recursive: true });
-    await fs.writeFile(filePath, JSON.stringify(defaultPool, null, 2), 'utf-8');
-  }
-};
-
-const normalizePool = (rawPool: Partial<Record<Category, NewsArticle[]>>) => {
-  const normalized: Record<Category, NewsArticle[]> = {} as Record<Category, NewsArticle[]>;
-  AVAILABLE_CATEGORIES.forEach((category) => {
-    const items = rawPool?.[category];
-    if (items && Array.isArray(items) && items.length) {
-      normalized[category] = items.map((article, index) => ({
-        id: article.id ?? `${category}-fallback-${index}`,
-        title: article.title ?? `Update for ${category}`,
-        description: article.description ?? 'Stay tuned for the latest developments.',
-        url: article.url ?? fallbackSources[category],
-        source: article.source ?? 'Hundle Briefing',
-        category: article.category ?? category,
-        publishedAt: article.publishedAt ?? new Date().toISOString(),
-        isFresh: article.isFresh ?? true
-      }));
-      return;
-    }
-    normalized[category] = defaultPool[category];
-  });
-  return normalized;
+type NewsPoolRow = {
+  category: Category;
+  articles: NewsArticle[] | null;
 };
 
 const applyFreshness = (article: NewsArticle): NewsArticle => {
@@ -115,17 +55,40 @@ const applyFreshness = (article: NewsArticle): NewsArticle => {
   return { ...article, isFresh };
 };
 
-const readPoolFromDisk = async () => {
-  const filePath = getPoolPath();
-  await ensurePoolFile(filePath);
-  try {
-    const payload = await fs.readFile(filePath, 'utf-8');
-    const parsed = JSON.parse(payload) as Partial<Record<Category, NewsArticle[]>>;
-    return normalizePool(parsed);
-  } catch (error) {
-    console.error('Unable to read news pool from disk. Falling back to defaults.', error);
+const fetchPool = async (categories: Category[]) => {
+  const { data, error } = await supabase
+    .from('news_pool')
+    .select('category, articles')
+    .in('category', categories);
+
+  if (error) {
+    console.error('Unable to load news pool from Supabase. Falling back to defaults.', error);
     return defaultPool;
   }
+
+  const byCategory = new Map<Category, NewsArticle[]>();
+  (data as NewsPoolRow[] | null)?.forEach((row) => {
+    if (!row?.articles || !Array.isArray(row.articles)) {
+      return;
+    }
+    const normalized = row.articles.map((article, index) => ({
+      id: article.id ?? `${row.category}-fallback-${index}`,
+      title: article.title ?? `Update for ${row.category}`,
+      description: article.description ?? 'Stay tuned for the latest developments.',
+      url: article.url ?? fallbackSources[row.category],
+      source: article.source ?? 'Hundle Briefing',
+      category: article.category ?? row.category,
+      publishedAt: article.publishedAt ?? new Date().toISOString(),
+      isFresh: article.isFresh ?? true
+    }));
+    byCategory.set(row.category, normalized);
+  });
+
+  const normalized: Record<Category, NewsArticle[]> = {} as Record<Category, NewsArticle[]>;
+  categories.forEach((category) => {
+    normalized[category] = byCategory.get(category) ?? defaultPool[category];
+  });
+  return normalized;
 };
 
 export const fetchNews = async (categories: Category[]): Promise<NewsArticle[]> => {
@@ -135,7 +98,7 @@ export const fetchNews = async (categories: Category[]): Promise<NewsArticle[]> 
 
   await new Promise((resolve) => setTimeout(resolve, 300));
 
-  const pool = await readPoolFromDisk();
+  const pool = await fetchPool(categories);
   return categories.flatMap((category) => {
     const entries = pool[category] ?? defaultPool[category];
     return entries.map((article) => applyFreshness(article));

@@ -1,72 +1,62 @@
-import fs from 'fs/promises';
-import fsSync from 'fs';
-import path from 'path';
-import { StoredSubscription } from './types';
+import { supabase } from './supabaseClient';
+import type { Category, NotificationFrequency, Platform, StoredSubscription } from './types';
 
-const WORKSPACE_MARKERS = ['pnpm-workspace.yaml', 'turbo.json'];
+interface SubscriptionRow {
+  id: string;
+  endpoint: string;
+  keys_p256dh: string;
+  keys_auth: string;
+  categories: Category[];
+  frequency: NotificationFrequency;
+  platform: Platform;
+  created_at: string;
+}
 
-const resolveRepoRoot = () => {
-  const candidates = [process.env.INIT_CWD, process.cwd(), __dirname].filter(Boolean) as string[];
-  for (const start of candidates) {
-    let current = path.resolve(start);
-    while (true) {
-      if (WORKSPACE_MARKERS.some((marker) => fsSync.existsSync(path.join(current, marker)))) {
-        return current;
-      }
-      const parent = path.dirname(current);
-      if (parent === current) {
-        break;
-      }
-      current = parent;
-    }
-  }
-  return path.resolve(__dirname, '../../..');
-};
-
-const getDefaultStorePath = () => {
-  if (process.env.VERCEL === '1') {
-    const tmpDir = process.env.TMPDIR ?? '/tmp';
-    return path.join(tmpDir, 'hundle', 'subscriptions.json');
-  }
-  return path.join(resolveRepoRoot(), 'data', 'subscriptions.json');
-};
-
-const resolveStorePath = (override?: string) => {
-  if (!override) {
-    return getDefaultStorePath();
-  }
-  return path.isAbsolute(override) ? override : path.resolve(resolveRepoRoot(), override);
-};
-
-const ensureStoreFile = async (filePath: string) => {
-  const dir = path.dirname(filePath);
-  await fs.mkdir(dir, { recursive: true });
-  try {
-    await fs.access(filePath);
-  } catch {
-    await fs.writeFile(filePath, '[]', 'utf-8');
-  }
-};
-
-export const getStorePath = () => resolveStorePath(process.env.SUBSCRIPTIONS_FILE);
+const mapRowToSubscription = (row: SubscriptionRow): StoredSubscription => ({
+  id: row.id ?? row.endpoint,
+  endpoint: row.endpoint,
+  keys: {
+    p256dh: row.keys_p256dh,
+    auth: row.keys_auth
+  },
+  categories: row.categories ?? [],
+  frequency: row.frequency,
+  platform: row.platform,
+  createdAt: row.created_at
+});
 
 export const readSubscriptions = async (): Promise<StoredSubscription[]> => {
-  const filePath = getStorePath();
-  await ensureStoreFile(filePath);
-  const payload = await fs.readFile(filePath, 'utf-8');
-  return JSON.parse(payload) as StoredSubscription[];
+  const { data, error } = await supabase
+    .from('subscriptions')
+    .select('id, endpoint, keys_p256dh, keys_auth, categories, frequency, platform, created_at');
+
+  if (error) {
+    console.error('Unable to read subscriptions from Supabase.', error);
+    return [];
+  }
+
+  return (data as SubscriptionRow[] | null)?.map(mapRowToSubscription) ?? [];
 };
 
-export const writeSubscriptions = async (subs: StoredSubscription[]): Promise<void> => {
-  const filePath = getStorePath();
-  await ensureStoreFile(filePath);
-  await fs.writeFile(filePath, JSON.stringify(subs, null, 2), 'utf-8');
-};
+export const saveSubscription = async (
+  payload: StoredSubscription
+): Promise<StoredSubscription> => {
+  const row = {
+    id: payload.id,
+    endpoint: payload.endpoint,
+    keys_p256dh: payload.keys.p256dh,
+    keys_auth: payload.keys.auth,
+    categories: payload.categories,
+    frequency: payload.frequency,
+    platform: payload.platform,
+    created_at: payload.createdAt ?? new Date().toISOString()
+  };
 
-export const saveSubscription = async (payload: StoredSubscription): Promise<StoredSubscription> => {
-  const subscriptions = await readSubscriptions();
-  const deduped = subscriptions.filter((sub) => sub.endpoint !== payload.endpoint);
-  deduped.push(payload);
-  await writeSubscriptions(deduped);
-  return payload;
+  const { error } = await supabase.from('subscriptions').upsert(row, { onConflict: 'endpoint' });
+
+  if (error) {
+    throw error;
+  }
+
+  return { ...payload, createdAt: row.created_at };
 };

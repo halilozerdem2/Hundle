@@ -1,0 +1,4 @@
+id,endpoint,keys_p256dh,keys_auth,categories,frequency,platform,created_at
+"368a5d7c-3b5f-4e5f-9bdc-ffb4c0b2c111","https://example.com/endpoint/1","BKy1...p256dh","n5J...auth","[""technology"",""business""]","1h","android","2026-01-16T04:30:00Z"
+"5685c7e1-e2dc-45c7-b20c-63a9fae8d222","https://example.com/endpoint/2","BKm2...p256dh","h3Q...auth","[""ai"",""startups"",""science""]","3h","desktop","2026-01-16T04:35:00Z"
+"7f92a73b-8b44-4823-a908-70f4c4e7d333","https://example.com/endpoint/3","BKy7...p256dh","p9Z...auth","[""health"",""travel""]","1d","ios-pwa","2026-01-16T04:40:00Z"
