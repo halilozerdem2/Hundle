@@ -343,14 +343,17 @@ button.secondary {
 
 .category-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  column-gap: 0.6rem;
+  row-gap: 0.3rem;
   width: 100%;
+  padding: 0.25rem 0;
+  margin-top: -0.35rem;
 }
 
 .category-pill {
-  border-radius: 0.75rem;
-  padding: 0.4rem 0.75rem;
+  border-radius: 0.85rem;
+  padding: 0.55rem 0.85rem;
   border: 1px solid rgba(148, 163, 184, 0.5);
   background: transparent;
   color: #e2e8f0;
@@ -360,14 +363,12 @@ button.secondary {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 34px;
+  min-height: 46px;
   text-align: center;
-  white-space: normal;
-  font-size: clamp(0.7rem, 1.8vw, 0.9rem);
-  line-height: 1.25;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  text-wrap: balance;
+  white-space: nowrap;
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 .category-pill.active {
@@ -578,7 +579,7 @@ button.secondary {
 .news-tab-panel {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
   width: 100%;
 }
 
@@ -706,17 +707,20 @@ button.secondary {
   }
 
   .news-tabs__panel {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
   .category-bar {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0.25rem;
+    row-gap: 0.15rem;
+    padding: 0;
+    margin-top: -0.25rem;
   }
 
   .category-pill {
-    min-height: 28px;
-    padding: 0.3rem 0.45rem;
-    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+    min-height: 38px;
+    padding: 0.4rem 0.45rem;
+    font-size: clamp(0.85rem, 3vw, 1rem);
   }
 }

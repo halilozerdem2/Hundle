@@ -46,6 +46,7 @@ const turkishCategoryLabels: Record<Category, string> = {
 };
 
 const englishFrequencyLabels: Record<NotificationFrequency, string> = {
+  '1m': '1 minute',
   '1h': '1 hour',
   '3h': '3 hours',
   '6h': '6 hours',
@@ -55,6 +56,7 @@ const englishFrequencyLabels: Record<NotificationFrequency, string> = {
 };
 
 const turkishFrequencyLabels: Record<NotificationFrequency, string> = {
+  '1m': '1 dakika',
   '1h': '1 saat',
   '3h': '3 saat',
   '6h': '6 saat',

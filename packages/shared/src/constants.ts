@@ -69,6 +69,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 };
 
 export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = [
+  '1m',
   '1h',
   '3h',
   '6h',
@@ -78,6 +79,7 @@ export const NOTIFICATION_FREQUENCIES: NotificationFrequency[] = [
 ];
 
 export const FREQUENCY_CRON: Record<NotificationFrequency, string> = {
+  '1m': '* * * * *',
   '1h': '0 * * * *',
   '3h': '0 */3 * * *',
   '6h': '0 */6 * * *',

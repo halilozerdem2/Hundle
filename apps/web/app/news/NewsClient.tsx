@@ -7,13 +7,49 @@ import {
   NOTIFICATION_FREQUENCIES,
   type Category,
   type NewsArticle,
-  type NotificationFrequency
+  type NotificationFrequency,
+  type Platform
 } from '@news/shared';
 import { useLanguage } from '../../components/LanguageProvider';
 import NewsFeed from '../components/news-feed';
 import NewsList from '../components/news-list';
 
 type Tab = 'interests' | 'news' | 'notifications' | 'readLater';
+
+const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_KEY ?? '';
+
+const convertVapidKey = (key: string) => {
+  if (typeof window === 'undefined' || !key) {
+    return null;
+  }
+  const padding = '='.repeat((4 - (key.length % 4)) % 4);
+  const normalized = (key + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(normalized);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; i += 1) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+};
+
+const detectPlatform = (): Platform => {
+  if (typeof window === 'undefined') {
+    return 'desktop';
+  }
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  const isIOS = /iphone|ipad|ipod/.test(userAgent);
+  const isAndroid = userAgent.includes('android');
+  const standalone =
+    window.matchMedia?.('(display-mode: standalone)').matches ||
+    (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+  if (isIOS && standalone) {
+    return 'ios-pwa';
+  }
+  if (isAndroid) {
+    return 'android';
+  }
+  return 'desktop';
+};
 
 interface NewsClientProps {
   articles: NewsArticle[];
@@ -31,9 +67,7 @@ const NewsClient = ({
   const router = useRouter();
   const { copy } = useLanguage();
   const frequencyLabels = copy.frequencyLabels;
-  const [activeTab, setActiveTab] = useState<Tab>(
-    selectedCategories.length ? 'news' : 'interests'
-  );
+  const [activeTab, setActiveTab] = useState<Tab>('notifications');
   const [readLater, setReadLater] = useState<NewsArticle[]>([]);
   const [categoryDraft, setCategoryDraft] = useState<Category[]>(selectedCategories);
   const [frequencyDraft, setFrequencyDraft] = useState<NotificationFrequency>(
@@ -71,6 +105,84 @@ const NewsClient = ({
     [readLaterIds, toggleReadLater]
   );
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('Notification' in window)) {
+      setActiveTab('interests');
+      return;
+    }
+    setActiveTab(Notification.permission === 'granted' ? 'interests' : 'notifications');
+  }, []);
+
+  const ensureNotificationPermission = useCallback(async () => {
+    if (typeof window === 'undefined' || !('Notification' in window)) {
+      return 'unsupported';
+    }
+    if (Notification.permission === 'default') {
+      try {
+        return await Notification.requestPermission();
+      } catch (error) {
+        console.error('Unable to request notification permission', error);
+        return 'denied';
+      }
+    }
+    return Notification.permission;
+  }, []);
+
+  const subscribeToPush = useCallback(
+    async (categories: Category[], nextFrequency: NotificationFrequency) => {
+      if (
+        typeof window === 'undefined' ||
+        !('Notification' in window) ||
+        !('serviceWorker' in navigator) ||
+        !('PushManager' in window)
+      ) {
+        return;
+      }
+      if (!categories.length || nextFrequency === 'none') {
+        return;
+      }
+      const permission = await ensureNotificationPermission();
+      if (permission !== 'granted') {
+        return;
+      }
+      if (!VAPID_PUBLIC_KEY) {
+        console.warn('NEXT_PUBLIC_VAPID_KEY missing; unable to subscribe to push notifications.');
+        return;
+      }
+      try {
+        const registration = await navigator.serviceWorker.register('/sw.js');
+        const existingSubscription = await registration.pushManager.getSubscription();
+        const keyArray = convertVapidKey(VAPID_PUBLIC_KEY);
+        if (!keyArray) {
+          return;
+        }
+        const subscription =
+          existingSubscription ??
+          (await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: keyArray
+          }));
+        if (!subscription) {
+          return;
+        }
+        const platform = detectPlatform();
+        await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subscription: subscription.toJSON(),
+            categories,
+            frequency: nextFrequency,
+            platform
+          })
+        });
+      } catch (error) {
+        console.error('Unable to register push notifications', error);
+      }
+    },
+    [ensureNotificationPermission]
+  );
+
   const buildNewsUrl = useCallback(
     (nextCategories: Category[], nextFrequency: NotificationFrequency) => {
       const params = new URLSearchParams();
@@ -98,11 +210,13 @@ const NewsClient = ({
 
   const syncCategories = useCallback(
     (nextCategories: Category[]) => {
-      setCategoryDraft(nextCategories);
       applyPreferences(nextCategories, frequencyDraft);
+      if (frequencyDraft !== 'none') {
+        void subscribeToPush(nextCategories, frequencyDraft);
+      }
       setActiveTab('news');
     },
-    [applyPreferences, frequencyDraft]
+    [applyPreferences, frequencyDraft, subscribeToPush]
   );
 
   const toggleCategory = useCallback(
@@ -118,9 +232,26 @@ const NewsClient = ({
     [syncCategories]
   );
 
-  const handleApplyNotifications = useCallback(() => {
+  const handleApplyNotifications = useCallback(async () => {
     applyPreferences(categoryDraft, frequencyDraft);
-  }, [applyPreferences, categoryDraft, frequencyDraft]);
+    if (frequencyDraft !== 'none') {
+      await ensureNotificationPermission();
+      const categoriesForSubscription = categoryDraft.length
+        ? categoryDraft
+        : selectedCategories;
+      if (categoriesForSubscription.length) {
+        void subscribeToPush(categoriesForSubscription, frequencyDraft);
+      }
+    }
+    setActiveTab('interests');
+  }, [
+    applyPreferences,
+    categoryDraft,
+    frequencyDraft,
+    ensureNotificationPermission,
+    selectedCategories,
+    subscribeToPush
+  ]);
 
   const renderInterests = () => (
     <div className="news-tab-panel">
