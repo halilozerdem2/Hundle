@@ -1,8 +1,42 @@
 import fs from 'fs/promises';
+import fsSync from 'fs';
 import path from 'path';
 import { StoredSubscription } from './types';
 
-const DEFAULT_FILE = path.resolve(__dirname, '../../..', 'data', 'subscriptions.json');
+const WORKSPACE_MARKERS = ['pnpm-workspace.yaml', 'turbo.json'];
+
+const resolveRepoRoot = () => {
+  const candidates = [process.env.INIT_CWD, process.cwd(), __dirname].filter(Boolean) as string[];
+  for (const start of candidates) {
+    let current = path.resolve(start);
+    while (true) {
+      if (WORKSPACE_MARKERS.some((marker) => fsSync.existsSync(path.join(current, marker)))) {
+        return current;
+      }
+      const parent = path.dirname(current);
+      if (parent === current) {
+        break;
+      }
+      current = parent;
+    }
+  }
+  return path.resolve(__dirname, '../../..');
+};
+
+const getDefaultStorePath = () => {
+  if (process.env.VERCEL === '1') {
+    const tmpDir = process.env.TMPDIR ?? '/tmp';
+    return path.join(tmpDir, 'hundle', 'subscriptions.json');
+  }
+  return path.join(resolveRepoRoot(), 'data', 'subscriptions.json');
+};
+
+const resolveStorePath = (override?: string) => {
+  if (!override) {
+    return getDefaultStorePath();
+  }
+  return path.isAbsolute(override) ? override : path.resolve(resolveRepoRoot(), override);
+};
 
 const ensureStoreFile = async (filePath: string) => {
   const dir = path.dirname(filePath);
@@ -14,7 +48,7 @@ const ensureStoreFile = async (filePath: string) => {
   }
 };
 
-export const getStorePath = () => process.env.SUBSCRIPTIONS_FILE ?? DEFAULT_FILE;
+export const getStorePath = () => resolveStorePath(process.env.SUBSCRIPTIONS_FILE);
 
 export const readSubscriptions = async (): Promise<StoredSubscription[]> => {
   const filePath = getStorePath();
